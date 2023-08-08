@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TNano Yarn Estimator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>TNano Estimator - Company</h1>
+        <!--
+            <button>≡</button>
+        -->
+        <p>V1.0</p>
+    </header>
+
+    <img src="TnanoLogo.png" id="tnanoBackgroundLogo">
+
+    <div class="estimator">
+        <h2>Inputs</h2>
+
+        <!--
+            <div class="inputBox">
+            <label for="types">Type</label>
+            <select name="types" id="types">
+                <option value="yarn">TNano Yarn</option>
+            </select>
+            <select name="subtype" id="subtype">
+                <option value="50">d = 50 um</option>
+            </select>
+         </div>
+        -->
+        
+        <div class="inputBox" style="flex-wrap: wrap;">
+            <label for="amount">Production</label>
+            <input type="number" id="amount" name="amount" min="0.001" max="100000" value="100" onchange="AmountChanged(this.value)">
+            <select name="amountUnit" id="amountUnit" onchange="AmountUnitChanged(this.value)" style="flex-grow: 0;">
+                <option value="grams">grams</option>
+                <option value="kg">kg</option>
+                <option value="lbs">lbs</option>
+                <option value="km">km</option>
+                <option value="m">m</option>
+                <option value="ft">ft</option>
+            </select>
+
+            <p style="width: 100%; font-size: 8px; margin-top: 0; padding-top: 0; margin-left: 8px;">(per month)</p>
+        </div>
+
+        <div class="inputBox">
+            <label for="time">Time</label>
+            <input type="number" id="time" name="time" min="1" max="48" value="6" onchange="TimeChanged(this.value)">
+            <label for="time">months</label>
+        </div>
+
+        <div class="inputBox">
+            <label for="time">Markup</label>
+            <input type="number" id="markup" name="markup" value="0" onchange="MarkupChanged(this.value)">
+            <label for="time">%</label>
+        </div>
+
+        <h2>Resulting production volume</h2>
+
+        <div class="inputBox">
+            <p>Wafers</p>
+            <p class="result" id="waferVolumeText">200</p>
+            <select name="waferVolumeUnit" id="waferVolumeUnit" onchange="RunCalculator()" style="flex-grow:0;">
+                <option value="month">per month</option>
+                <option value="day">per day</option>
+                <option value="total">in total</option>
+                <option value="year">per year</option>
+            </select>
+        </div>
+        
+        <div class="inputBox">
+            <p>Yarn</p>
+            <p class="result" id="productionVolumeText">200</p>
+            <select name="productionVolumeUnit" id="productionVolumeUnit" onchange="RunCalculator()" style="flex-grow:0;">
+                <option value="grams">grams</option>
+                <option value="kg">kg</option>
+                <option value="lbs">lbs</option>
+                <option value="km">km</option>
+                <option value="m">m</option>
+                <option value="ft">ft</option>
+            </select>
+        </div>
+
+        <h2>Price per gram based on production</h2>
+
+        <canvas id="timePriceChart" style="width:100%;"></canvas>
+
+        <h2>Customer</h2>
+
+        <div class="inputBox">
+            <p>Price</p>
+            <p class="result" id="pricePerAmount">$560</p>
+            <select name="pricePerAmountUnit" id="pricePerAmountUnit" onchange="RunCalculator()" style="flex-grow: 0;">
+                <option value="grams">/ gram</option>
+                <option value="kg">/ kg</option>
+                <option value="lbs">/ lb</option>
+                <option value="km">/ km</option>
+                <option value="m">/ m</option>
+                <option value="ft">/ ft</option>
+            </select>
+        </div>
+        
+        <div class="inputBox">
+            <p>In total</p>
+            <p class="result" id="price">$1,000,000</p>
+        </div>
+
+        
+
+        <h2>Costs</h2>
+
+        <canvas id="costPieChart" style="width:100%;"></canvas>
+
+        <!--
+            <div class="inputBox">
+            <button class="expandInfoButton">Upfront Investment</button>
+            <p class="result" id="equipmentCost">$10,000,000</p>
+            </div>
+        -->
+
+        <div class="inputBox">
+            <p>Costs</button>
+            <p class="result" id="totalCost">$10,000</p>
+            <select  id="totalCostUnit" onchange="RunCalculator()" style="flex-grow: 0;">
+                <option value="total">total</option>
+                <option value="month">/ month</option>
+                <option value="grams">/ gram</option>
+                <option value="kg">/ kg</option>
+                <option value="lbs">/ lb</option>
+                <option value="km">/ km</option>
+                <option value="m">/ m</option>
+                <option value="ft">/ ft</option>
+            </select>
+        </div>
+
+        <div class="inputBoxL2">
+            <button class="expandInfoButton" onclick="ToggleEquipmentDetails()">Equipment</button>
+            <p class="result" id="equipmentCost">$10,000</p>
+            <div class="accordionHolder" id="equipmentDetailHolder"></div>
+        </div>
+
+        <div class="inputBoxL2">
+            <button class="expandInfoButton" onclick="ToggleMaterialDetails()">Material</button>
+            <p class="result" id="materialCost">$1,000</p>
+            <div class="accordionHolder" id="materialsDetailHolder"></div>
+        </div>
+
+        <div class="inputBoxL2">
+            <button class="expandInfoButton" onclick="ToggleLaborDetails()">Labor</button>
+            <p class="result" id="laborCost">$1,000</p>
+            <div class="accordionHolder" id="laborDetailHolder"></div>
+        </div>
+
+        <div class="inputBoxL2">
+            <button class="expandInfoButton" onclick="ToggleIndirectDetails()">Indirect</button>
+            <p class="result" id="indirectCost">$1,000</p>
+            <div class="accordionHolder" id="indirectDetailHolder"></div>
+        </div>
+
+        <h2>Results</h2>
+
+        <canvas id="resultsBarChart" style="width:100%;"></canvas>
+
+        <div class="inputBox">
+            <p>Revenue</p>
+            <p class="result" id="revenue">$1,000</p>
+            <select name="revenueUnit" id="revenueUnit" onchange="RunCalculator()" style="flex-grow: 0;">
+                <option value="total">total</option>
+                <option value="month">/ month</option>
+                <option value="grams">/ gram</option>
+                <option value="kg">/ kg</option>
+                <option value="lbs">/ lb</option>
+                <option value="km">/ km</option>
+                <option value="m">/ m</option>
+                <option value="ft">/ ft</option>
+            </select>
+        </div>
+
+        <div class="inputBox">
+            <p>Profit</p>
+            <p class="result" id="profit">$1,000</p>
+            <select name="profitUnit" id="profitUnit" onchange="RunCalculator()" style="flex-grow: 0;">
+                <option value="total">total</option>
+                <option value="month">/ month</option>
+                <option value="grams">/ gram</option>
+                <option value="kg">/ kg</option>
+                <option value="lbs">/ lb</option>
+                <option value="km">/ km</option>
+                <option value="m">/ m</option>
+                <option value="ft">/ ft</option>
+            </select>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="scripts.js">
+    </script>
+</body>
+</html>
