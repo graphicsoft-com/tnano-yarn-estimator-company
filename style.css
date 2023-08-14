@@ -6,7 +6,6 @@
 *{
     margin: 0;
     padding: 0;
-    /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/ 
     font-family: LiberationSans;
     color: white;
 }
@@ -14,28 +13,13 @@
 header{
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: baseline;
     margin: 0;
     padding: 20px;
-    padding-bottom: 5px;
+    padding-bottom: 0;
     margin-top: 15px;
-}
-
-header button{
-    width: 23px;
-    height: 23px;
-    /* background-color: #292929; */
-    background-color: #121212;
-    border: 0;
-    font-size: 36px;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
 }
 
 header h1{
@@ -48,28 +32,40 @@ header p{
     font-size: 8px;
 }
 
+.pageLinkHolder{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: baseline;
+    margin: 0;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.pageLinkHolder a{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 12px;
+    text-decoration: none;
+    color: white;
+    font-weight: 400;
+    background-color: #292929;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
 body{
     background-color: #121212;
 }
 
 .estimator{
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-top: 0;
-    align-items: baseline;
+    padding: 0 20px;
+    display: block;
     font-size: 16px;
-    font-weight: bold;
 }
 
-.estimator *{
-    margin: 4px;
-    font-weight: bold;
-}
-
-.estimator h2{
+h2{
     font-size: 14px;
     width: 100%;
     margin-top: 20px;
@@ -83,12 +79,18 @@ select{
     border-radius: 4px;
     padding: 6px;
     font-size: 16px;
-    margin-left: -2px;
-    flex-grow: 1;
+    margin: 4px 8px;
+    flex-grow: 0;
     color: #FF7719;
-    cursor: pointer;
+    padding: 6px;
+    text-align: left;
 }
 
+.result{
+    flex-grow: 1;
+    text-align: right;
+    transition: opacity 0.2s ease;
+}
 
 input{
     background-color: #292929;
@@ -96,10 +98,14 @@ input{
     border-radius: 4px;
     padding: 6px;
     font-size: 16px;
-    flex-grow: 2;
-    margin-left: 20px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    width: 0;
     text-align: right;
     color: #FF7719;
+    margin: 4px;
+    transition: opacity 0.2s ease;
 }
 
 .break{
@@ -108,22 +114,20 @@ input{
     padding: 0;
 }
 
-.estimator label{
-    margin-left: 8px;
-    margin-right: 8px;
+label{
+    margin: 4px 8px;
+    padding: 6px;
 }
 
-.inputBox{
-    width: 100%;
+.contentBox{
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin: 0;
     padding: 0;
     background-color: #292929;
     border-radius: 6px;
-    margin-top: 6px;
-    margin-bottom: 6px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     flex-wrap: nowrap;
     padding-left: 8px;
     padding-right: 8px;
@@ -131,7 +135,7 @@ input{
     padding-bottom: 4px;
 }
 
-.inputBoxL2{
+.contentBoxL2{
     width: 90%;
     display: flex;
     align-items: baseline;
@@ -155,8 +159,15 @@ input{
 }
 
 p{
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding: 6px;
+    margin: 4px;
+}
+
+.productImage{
+    width: 60%;
+    height: auto;
+    margin-left: 20%;
+    margin-top: 40px;
 }
 
 #tnanoBackgroundLogo{
@@ -167,12 +178,6 @@ p{
     z-index: -1;
     opacity: 0.3;
     margin-top: -5px;
-}
-
-.result{
-    flex-grow: 1;
-    text-align: right;
-    transition: opacity 0.2s ease;
 }
 
 .fadeOut {
@@ -188,8 +193,8 @@ p{
     cursor: pointer;
 }
 
-.estimator canvas{
-    background-color:#121212;
+canvas{
+    background-color:transparent;
     padding-top: 4px;
     padding-bottom: 4px;
     padding-left: 8px;
@@ -216,7 +221,6 @@ p{
 }
 
 .accordionHolder{
-    /*background-color: red;*/
     width: 100%;
     margin: 0;
     padding: 4px;
@@ -231,32 +235,51 @@ p{
     padding: 6px 0;
 }
 
-@media (min-width:600px){
+.content{
+    margin-bottom: 80px;
+}
+
+@media (min-width:960px){
     body{
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
     }
+    .content{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        padding-top: 40px;
+        min-height: 120vh;
+    }
+    header{
+        width: 900px;
+    }
+    
     .estimator{
         width: 440px;
     }
 
     #tnanoBackgroundLogo{
         position: absolute;
-        width: 160px;
+        width: 600px;
         height: auto;
         margin-left: -300px;
         z-index: -1;
         opacity: 0.3;
-        margin-top: 60px;
-    }
-
-    header{
-        width: 440px;
+        margin-top: -60vh;
     }
 
     input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{
         display: none;
+    }
+
+    .productImage{
+        width: 80%;
+        height: auto;
+        margin: 0;
+        margin-left: 10%;
     }
 }
