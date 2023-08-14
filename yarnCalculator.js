@@ -161,7 +161,6 @@ function RunCalculator() {
                 wafersPerHourLeft -= equipment[indexOfFinal].maxThroughput;
             }
         });
-    
         
         for (i = 0; i < equipment.length; i++) {
             totalEquipmentCost += equipment[i].cost * Math.pow(countOfEquipment[i], equipment[i].costExponent);
@@ -718,11 +717,13 @@ function DrawTimePriceLineChart(){
     let timeCostCharty = [];   
 
     for(let i = 0; i < dataPoints; i++){
-        timeCostChartx[i] = Math.round(Math.pow(1.5,i));
+        //timeCostChartx[i] = Math.pow(1.4, i+1);
+        timeCostChartx[i] = i+1;
     }
     
     for(let i = 0; i < timeCostChartx.length; i++){
-        timeCostCharty[i] = Math.round(CostPerGram(i + 1)*(1+markup/100));
+        timeCostCharty[i] = Math.round(CostPerGram(timeCostChartx[i]) * (1 + markup / 100));
+        // timeCostChartx[i] = Math.round(timeCostChartx[i]+10)/10;
     }
 
     if(timeCostLineChart !== null){
@@ -771,58 +772,74 @@ function DrawTimePriceLineChart(){
 
 function CostPerGram(grams){
 
-    let wafPerMonth = grams / months;
+    console.log("CostPerGramFunction, grams per month: " + grams);
+
+    let wafPerMonth = grams * 6.5 / 5 * 5;
+    console.log("CostPerGramFunction, wafers per month: " + wafPerMonth);
+
+    let totalEquipmentCost = 0;
+    let totalMaterialCosts = 0;
 
     let cOE = [0, 0, 0, 0, 0, 0];
-
-    let types = ["E-Gun Evaporator", "CVD", "Laser Engraver", "Spinning Machine"];
-    types.forEach((type) => {
-        let eq = GetEquipmentOfType(type);
-        let wafersPerHourLeft = wafPerMonth / 160;
-
-        for (let i = 0; i < eq.length; i++) {
-            while (wafersPerHourLeft > eq[i].maxThroughput) {
-                cOE[equipment.indexOf(eq[i])]++;
-                wafersPerHourLeft -= eq[i].maxThroughput;
-            }
-
-            if (i < eq.length - 1) {
-                let count = Math.round(wafersPerHourLeft / eq[i + 1].maxThroughput);
-                if (eq[i].cost < eq[i + 1].cost * count) {
+    if(document.getElementById("productionMode").value == 0){
+        let types = ["E-Gun Evaporator", "CVD", "Laser Engraver", "Spinning Machine"];
+        types.forEach((type) => {
+            let eq = GetEquipmentOfType(type);
+            let wafersPerHourLeft = wafPerMonth / 160;
+    
+            for (let i = 0; i < eq.length; i++) {
+                while (wafersPerHourLeft > eq[i].maxThroughput) {
                     cOE[equipment.indexOf(eq[i])]++;
                     wafersPerHourLeft -= eq[i].maxThroughput;
                 }
+    
+                if (i < eq.length - 1) {
+                    let count = Math.round(wafersPerHourLeft / eq[i + 1].maxThroughput);
+                    if (eq[i].cost < eq[i + 1].cost * count) {
+                        cOE[equipment.indexOf(eq[i])]++;
+                        wafersPerHourLeft -= eq[i].maxThroughput;
+                    }
+                }
             }
+    
+            let indexOfFinal = equipment.indexOf(GetEquipmentOfType(type)[GetEquipmentOfType(type).length - 1]);
+            while (wafersPerHourLeft > 0) {
+                cOE[indexOfFinal]++;
+                wafersPerHourLeft -= equipment[indexOfFinal].maxThroughput;
+            }
+        });
+        
+        for (i = 0; i < equipment.length; i++) {
+            totalEquipmentCost += equipment[i].cost * Math.pow(cOE[i], equipment[i].costExponent);
         }
 
-        let indexOfFinal = equipment.indexOf(GetEquipmentOfType(type)[GetEquipmentOfType(type).length - 1]);
-        while (wafersPerHourLeft > 0) {
-            cOE[indexOfFinal]++;
-            wafersPerHourLeft -= equipment[indexOfFinal].maxThroughput;
-        }
-    });
-
-    let totalEquipmentCost = 0;
-    for (i = 0; i < equipment.length; i++) {
-        totalEquipmentCost += equipment[i].cost * Math.pow(cOE[i], equipment[i].costExponent);
+        materials.forEach((material) => {
+            totalMaterialCosts += material.costPerWafer * wafPerMonth * months;
+        });
     }
+    else{
+        totalEquipmentCost = Math.pow(Math.ceil(wafPerMonth / 160 / equipment[5].maxThroughput), equipment[5].costExponent) * equipment[5].cost;
+        totalMaterialCosts = wafPerMonth * months * 1000;
+    }  
+
+    console.log("CostPerGramFunction, total equipment cost: " + totalEquipmentCost);
+    console.log("CostPerGramFunction, total material cost: " + totalMaterialCosts);
 
     let workerCount = Math.ceil(wafPerMonth / 160 / workers[0].maxThroughput);
     let totalLaborCosts = workerCount * workers[0].hourlySalary * 160 * months;
+
+    console.log("CostPerGramFunction, total labor cost: " + totalLaborCosts);
 
     let totalIndirectCosts = 0;
     indirectCosts.forEach((idc) => {
         totalIndirectCosts += idc.monthlyCost * months;
     });
 
-    let totalMaterialCosts = 0;
-    materials.forEach((material) => {
-        totalMaterialCosts += material.costPerWafer * wafPerMonth * months;
-    });
+    console.log("CostPerGramFunction, total indirect cost: " + totalIndirectCosts);
 
     let totalMontlyCosts = (totalLaborCosts + totalIndirectCosts + totalMaterialCosts + totalEquipmentCost) / months;
-    let totalCost = totalMontlyCosts * months;
 
+    console.log("CostPerGramFunction, cost per gram: " + (totalMontlyCosts / grams));
     // Price per gram equials
-    return (totalCost / months / grams);
+    return (totalMontlyCosts / grams);
 }
