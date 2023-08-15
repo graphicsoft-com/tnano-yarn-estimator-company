@@ -1,0 +1,38 @@
+name: Obfuscate JavaScript
+
+on:
+  push:
+    paths:
+      - 'yarnCalculator.js'
+      - 'hydroSonixCalculator.js'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install javascript-obfuscator
+      run: npm install -g javascript-obfuscator
+
+    - name: Obfuscate JavaScript file 1
+      run: javascript-obfuscator yarnCalculator.js --output yarnCalculator-obfuscated.js
+
+    - name: Obfuscate JavaScript file 2
+      run: javascript-obfuscator hydroSonixCalculator.js --output hydroSonixCalculator-obfuscated.js
+
+    - name: Commit and push obfuscated file
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add yarnCalculator-obfuscated.js
+        git add hydroSonixCalculator-obfuscated.js
+        git commit -m "Obfuscate JavaScript file" -a || echo "No changes to commit"
+        git push
