@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    
+</head>
+<body>
+    <header>
+        <h1>TNano Estimator - Company</h1>
+        <p>V2.1</p>
+    </header>
+
+    <img src="media\TnanoLogo.png" id="tnanoBackgroundLogo">
+
+    <div class="content">
+        <div class="estimator" style="margin-top: 150px;">
+            <form id="loginForm" class="contentBox">
+                <label for="password">Password:</label>
+                <input type="password" id="password" style="background-color: #3a3a3a;" placeholder="Enter Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+    
+    
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let enteredPassword = document.getElementById("password").value;
+            localStorage.setItem("password", enteredPassword);
+            let hashedEnteredPassword = CryptoJS.SHA256(enteredPassword).toString();
+
+            let storedHash = "06f08bff9d937ac61ac983fef626f50ef0d4d4f64680524629887ef6bc5d937e";
+            
+            if (hashedEnteredPassword === storedHash) {
+                
+                window.location.href = "yarn.html";
+            }
+            else {
+                alert("Incorrect password. Please try again.");
+            }
+        });
+    </script>
+
+</body>
+</html>
