@@ -122,6 +122,7 @@ function GetEquipmentOfType(type) {
     return equipmentOfType;
 }
 
+
 function RunCalculator() {
 
     gramsPerMonth = document.getElementById("amount").value / amountFactor;
