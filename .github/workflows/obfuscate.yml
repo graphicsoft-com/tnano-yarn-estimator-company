@@ -1,4 +1,4 @@
-name: Obfuscate JavaScript
+name: Minify and Obfuscate JavaScript
 
 on:
   push:
@@ -19,20 +19,23 @@ jobs:
       with:
         node-version: '14'
 
-    - name: Install javascript-obfuscator
-      run: npm install -g javascript-obfuscator
+    - name: Install terser
+      run: npm install -g terser
 
-    - name: Obfuscate JavaScript file 1
-      run: javascript-obfuscator yarnCalculator.js --output docs/yarnCalculator.js
+    - name: Minify JavaScript file 1
+      run: terser yarnCalculator.js -o docs/yarnCalculator.min.js
 
-    - name: Obfuscate JavaScript file 2
-      run: javascript-obfuscator hydroSonixCalculator.js --output docs/hydroSonixCalculator.js
+    - name: Minify JavaScript file 2
+      run: terser hydroSonixCalculator.js -o docs/hydroSonixCalculator.min.js
 
-    - name: Commit and push obfuscated file
+    - name: Obfuscate and Commit
       run: |
+        npm install -g javascript-obfuscator
+        javascript-obfuscator docs/yarnCalculator.min.js --output docs/yarnCalculator.js
+        javascript-obfuscator docs/hydroSonixCalculator.min.js --output docs/hydroSonixCalculator.js
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add docs/yarnCalculator.js
         git add docs/hydroSonixCalculator.js
-        git commit -m "Obfuscate JavaScript file" -a || echo "No changes to commit"
+        git commit -m "Minify and Obfuscate JavaScript files" -a || echo "No changes to commit"
         git push
