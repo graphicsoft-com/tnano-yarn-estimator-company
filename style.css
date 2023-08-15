@@ -239,6 +239,16 @@ canvas{
     margin-bottom: 80px;
 }
 
+button{
+    background-color: #3a3a3a;
+    border: 0;
+    border-radius: 4px;
+    padding: 6px;
+    font-size: 16px;
+    margin: 4px;
+    color: #FF7719;
+}
+
 @media (min-width:960px){
     body{
         display: flex;

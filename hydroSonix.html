@@ -9,11 +9,22 @@
 </head>
 
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script>
+        let password = localStorage.getItem("password");
+        let hashedPassword = CryptoJS.SHA256(password).toString();
+        let storedHash = "06f08bff9d937ac61ac983fef626f50ef0d4d4f64680524629887ef6bc5d937e";
+
+        if (hashedPassword !== storedHash) {
+            window.location.href = "index.html";
+        }
+    </script>
+    
     <header>
         <h1>TNano Estimator - Company</h1>
-        <p>V2.0</p>
+        <p>V2.1</p>
         <div class="pageLinkHolder">
-            <a href="index.html">50 µm yarn</a>
+            <a href="yarn.html">50 µm yarn</a>
             <a href="hydrosonix.html" style="outline: #FF7719 solid 2px;">HydroSonix Speaker</a>
         </div>
     </header>
@@ -168,8 +179,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="hydroSonixCalculator.js">
-    </script>
+    <script src="hydroSonixCalculator.js"></script>
 </body>
 
 </html>
