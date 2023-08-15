@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TNano Yarn Estimator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script>
+        let password = localStorage.getItem("password");
+        let hashedPassword = CryptoJS.SHA256(password).toString();
+        let storedHash = "06f08bff9d937ac61ac983fef626f50ef0d4d4f64680524629887ef6bc5d937e";
+
+        if (hashedPassword !== storedHash) {
+            window.location.href = "index.html";
+        }
+    </script>
+    
+    <header>
+        <h1>TNano Estimator - Company</h1>
+        <p>V2.1</p>
+        <div class="pageLinkHolder">
+            <a href="yarn.html">50 µm yarn</a>
+            <a href="hydrosonix.html" style="outline: #FF7719 solid 2px;">HydroSonix Speaker</a>
+        </div>
+    </header>
+
+    <img src="media\TnanoLogo.png" id="tnanoBackgroundLogo">
+    <div class="content">
+        <div class="estimator">
+            <img src="media\HydrosonixV5.png" class="productImage">
+            <h2>Inputs</h2>
+
+            <div class="contentBox">
+                <label for="productionMode">Wafers</label>
+                <select name="productionMode" id="productionMode" onchange="RunCalculator()" style="text-align: right;">
+                    <option value="0">TNano Custom Wafers</option>
+                    <option value="1">Lintec Wafers</option>
+                </select>
+            </div>
+
+            <div class="contentBox">
+                <label for="amount">Speakers per month</label>
+                <input type="number" id="amount" name="amount" min="0.001" value="10" onchange="RunCalculator()">
+            </div>
+
+            <div class="contentBox">
+                <label for="time">Time</label>
+                <input type="number" id="time" name="time" min="1" value="3" onchange="RunCalculator()">
+                <label for="time">months</label>
+            </div>
+
+            <div class="contentBox">
+                <label for="time">Markup</label>
+                <input type="number" id="markup" name="markup" value="0" onchange="RunCalculator()">
+                <label for="time">%</label>
+            </div>
+
+
+
+            <h2>Resulting production volume</h2>
+
+            <div class="contentBox">
+                <p>Speakers</p>
+                <p class="result" id="productionVolumeText">200</p>
+                <select name="productionVolumeUnit" id="productionVolumeUnit" onchange="RunCalculator()">
+                    <option value="total">in total</option>
+                    <option value="month">per month</option>
+                    <option value="day">per day</option>
+                    <option value="year">per year</option>
+                </select>
+            </div>
+
+            <div class="contentBox">
+                <p>Wafers</p>
+                <p class="result" id="waferVolumeText">200</p>
+                <select name="waferVolumeUnit" id="waferVolumeUnit" onchange="RunCalculator()">
+                    <option value="total">in total</option>
+                    <option value="month">per month</option>
+                    <option value="day">per day</option>
+                    <option value="year">per year</option>
+                </select>
+            </div>
+
+            <h2>Price per speaker based on number produced</h2>
+
+            <canvas id="timePriceChart" style="width:100%;"></canvas>
+
+
+            <h2>Customer</h2>
+
+            <div class="contentBox">
+                <p>Price</p>
+                <p class="result" id="pricePerAmount">$560</p>
+                <p>per speaker</p>
+            </div>
+
+            <div class="contentBox">
+                <p>In total</p>
+                <p class="result" id="price">$1,000,000</p>
+            </div>
+
+        </div>
+
+        <div class="estimator">
+
+            <h2>Costs</h2>
+
+            <canvas id="costPieChart" style="width:100%;"></canvas>
+
+            <div class="contentBox">
+                <p>Costs</button>
+                <p class="result" id="totalCost">$10,000</p>
+                <select id="totalCostUnit" onchange="RunCalculator()" style="flex-grow: 0;">
+                    <option value="total">total</option>
+                    <option value="month">/ month</option>
+                    <option value="day">/ day</option>
+                    <option value="speaker">/ speaker</option>
+                </select>
+            </div>
+
+            <div class="contentBoxL2">
+                <button class="expandInfoButton" onclick="ToggleEquipmentDetails()">Equipment</button>
+                <p class="result" id="equipmentCost">$10,000</p>
+                <div class="accordionHolder" id="equipmentDetailHolder"></div>
+            </div>
+
+            <div class="contentBoxL2">
+                <button class="expandInfoButton" onclick="ToggleMaterialDetails()">Material</button>
+                <p class="result" id="materialCost">$1,000</p>
+                <div class="accordionHolder" id="materialsDetailHolder"></div>
+            </div>
+
+            <div class="contentBoxL2">
+                <button class="expandInfoButton" onclick="ToggleLaborDetails()">Labor</button>
+                <p class="result" id="laborCost">$1,000</p>
+                <div class="accordionHolder" id="laborDetailHolder"></div>
+            </div>
+
+            <div class="contentBoxL2">
+                <button class="expandInfoButton" onclick="ToggleIndirectDetails()">Indirect</button>
+                <p class="result" id="indirectCost">$1,000</p>
+                <div class="accordionHolder" id="indirectDetailHolder"></div>
+            </div>
+
+            <h2>Results</h2>
+
+            <canvas id="resultsBarChart" style="width:100%;"></canvas>
+
+            <div class="contentBox">
+                <p>Revenue</p>
+                <p class="result" id="revenue">$1,000</p>
+                <select name="revenueUnit" id="revenueUnit" onchange="RunCalculator()" style="flex-grow: 0;">
+                    <option value="total">total</option>
+                    <option value="month">/ month</option>
+                    <option value="day">/ day</option>
+                    <option value="speaker">/ speaker</option>
+                </select>
+            </div>
+
+            <div class="contentBox">
+                <p>Profit</p>
+                <p class="result" id="profit">$1,000</p>
+                <select name="profitUnit" id="profitUnit" onchange="RunCalculator()" style="flex-grow: 0;">
+                    <option value="total">total</option>
+                    <option value="month">/ month</option>
+                    <option value="day">/ day</option>
+                    <option value="speaker">/ speaker</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="hydroSonixCalculator.js"></script>
+</body>
+
+</html>
