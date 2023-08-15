@@ -709,7 +709,6 @@ function DrawCostPieChart(equipmentCost, laborCost, materialCost, indirectCost){
     
 }
 
-
 function DrawTimePriceLineChart(){
 
     let dataPoints = 20;
