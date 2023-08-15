@@ -32,7 +32,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add yarnCalculator-obfuscated.js
-        git add hydroSonixCalculator-obfuscated.js
+        git add docs/yarnCalculator.js
+        git add docs/hydroSonixCalculator.js
         git commit -m "Obfuscate JavaScript file" -a || echo "No changes to commit"
         git push
