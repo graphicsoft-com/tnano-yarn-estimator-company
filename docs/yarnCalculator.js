@@ -1,1 +1,867 @@
-const a0_0x5a8aab=a0_0x2179;(function(_0x6ef70d,_0x2af9ea){const _0x4aa70c=a0_0x2179,_0xca4457=_0x6ef70d();while(!![]){try{const _0x306033=parseInt(_0x4aa70c(0xbc))/0x1+-parseInt(_0x4aa70c(0x91))/0x2+-parseInt(_0x4aa70c(0x8d))/0x3*(-parseInt(_0x4aa70c(0xf8))/0x4)+parseInt(_0x4aa70c(0x94))/0x5+-parseInt(_0x4aa70c(0xe4))/0x6+parseInt(_0x4aa70c(0xd4))/0x7*(-parseInt(_0x4aa70c(0xd1))/0x8)+-parseInt(_0x4aa70c(0x78))/0x9*(-parseInt(_0x4aa70c(0x97))/0xa);if(_0x306033===_0x2af9ea)break;else _0xca4457['push'](_0xca4457['shift']());}catch(_0x406e6d){_0xca4457['push'](_0xca4457['shift']());}}}(a0_0x455d,0xb0f27));class Equipment{constructor(_0x530e62,_0x219248,_0x31874c,_0x43bcae,_0x5ccb65){const _0x258c17=a0_0x2179;this[_0x258c17(0xd9)]=_0x530e62,this['name']=_0x219248,this[_0x258c17(0xdb)]=_0x31874c,this[_0x258c17(0xcd)]=_0x43bcae,this[_0x258c17(0x86)]=_0x5ccb65;}}class Material{constructor(_0xf6835f,_0x38de63){const _0x3c0cfb=a0_0x2179;this[_0x3c0cfb(0xd9)]=_0xf6835f,this[_0x3c0cfb(0x9a)]=_0x38de63;}}class Worker{constructor(_0x310c8a,_0x525cdf,_0x1d7a91){const _0x5d4510=a0_0x2179;this[_0x5d4510(0xd9)]=_0x310c8a,this[_0x5d4510(0xf6)]=_0x525cdf,this[_0x5d4510(0xcd)]=_0x1d7a91;}}class IndirectCost{constructor(_0x4b1787,_0x1002bb){this['type']=_0x4b1787,this['monthlyCost']=_0x1002bb;}}const equipment=[];equipment[0x0]=new Equipment(a0_0x5a8aab(0xe5),a0_0x5a8aab(0x93),0x2d2a8,0.75,0x1),equipment[0x1]=new Equipment(a0_0x5a8aab(0xe5),a0_0x5a8aab(0xf7),0x3d090,0x20,0x1),equipment[0x2]=new Equipment(a0_0x5a8aab(0xe5),'Easytube\x206000',0xc3500,0xc8,0x1),equipment[0x3]=new Equipment(a0_0x5a8aab(0xb7),a0_0x5a8aab(0xc6),0xfa,0x32,0x1),equipment[0x4]=new Equipment(a0_0x5a8aab(0xed),a0_0x5a8aab(0xb2),0x222e0,0x6,0x1),equipment[0x5]=new Equipment(a0_0x5a8aab(0xd0),a0_0x5a8aab(0xb4),0x7d0,0x1/0x4,0.8);const materials=[];materials[0x0]=new Material(a0_0x5a8aab(0xbe),0xc8/0x5),materials[0x1]=new Material(a0_0x5a8aab(0xe3),6.7/0x5),materials[0x2]=new Material(a0_0x5a8aab(0xc8),4.41/0x5),materials[0x3]=new Material('Hydrogen\x20Gas',3.5154/0x5),materials[0x4]=new Material(a0_0x5a8aab(0xac),5.7246/0x5);const workers=[];workers[0x0]=new Worker(a0_0x5a8aab(0x8b),62.5,0x8);const indirectCosts=[];indirectCosts[0x0]=new IndirectCost('Rent',0xfa0),indirectCosts[0x1]=new IndirectCost(a0_0x5a8aab(0xa5),0x78);let amountInput=document[a0_0x5a8aab(0x9e)](a0_0x5a8aab(0x85)),amountUnitInput=document[a0_0x5a8aab(0x9e)](a0_0x5a8aab(0x9d)),monthsInput=document[a0_0x5a8aab(0x9e)](a0_0x5a8aab(0x80)),gramsPerMonth=0x64,amountFactor=0x1,months=0x0,markup=0x0,wafersPerMonth,countOfEquipment=[0x0,0x0,0x0,0x0,0x0,0x0],timeCostLineChart=null,costPieChart=null,resultsBarChart=null;RunCalculator();function AmountUnitChanged(_0x171a79){const _0x10869a=a0_0x5a8aab;switch(_0x171a79){case _0x10869a(0x87):amountFactor=0x1;break;case'kg':amountFactor=0x1/0x3e8;break;case'lbs':amountFactor=0x1/453.592;break;case'km':amountFactor=6.5/0x5;break;case'm':amountFactor=6.5/0x5*0x3e8;break;case'ft':amountFactor=6.5/0x5*0x3e8*3.28084;}amountInput['value']=Math[_0x10869a(0xa1)](gramsPerMonth*amountFactor*0x64)/0x64;}function CompareEquipment(_0xc9a645,_0x25d834){const _0x22c2fd=a0_0x5a8aab;if(_0xc9a645[_0x22c2fd(0xcd)]<_0x25d834['maxThroughput'])return 0x1;else return-0x1;}function GetEquipmentOfType(_0x5859fd){const _0x4c8430=a0_0x5a8aab;let _0x5e4064=0x0;equipment[_0x4c8430(0xa9)](_0x587bf5=>{const _0x79a667=_0x4c8430;if(_0x587bf5[_0x79a667(0xd9)]===_0x5859fd)_0x5e4064++;});let _0x4cdfd2=new Array(_0x5e4064),_0x2851f6=0x0;return equipment['forEach'](_0x199dde=>{_0x199dde['type']===_0x5859fd&&(_0x4cdfd2[_0x2851f6]=_0x199dde,_0x2851f6++);}),_0x4cdfd2[_0x4c8430(0xcc)](CompareEquipment),_0x4cdfd2;}function RunCalculator(){const _0x394e0c=a0_0x5a8aab;gramsPerMonth=document[_0x394e0c(0x9e)](_0x394e0c(0x85))[_0x394e0c(0xd6)]/amountFactor,months=document[_0x394e0c(0x9e)](_0x394e0c(0x80))[_0x394e0c(0xd6)],markup=document[_0x394e0c(0x9e)](_0x394e0c(0x84))[_0x394e0c(0xd6)],wafersPerMonth=gramsPerMonth*6.5/0x5*0x5;let _0x493add=0x0,_0x5530a8=0x0;countOfEquipment=[0x0,0x0,0x0,0x0,0x0,0x0];if(document[_0x394e0c(0x9e)](_0x394e0c(0xa4))[_0x394e0c(0xd6)]==0x0){let _0x290989=['E-Gun\x20Evaporator','CVD',_0x394e0c(0xb7),_0x394e0c(0xd0)];_0x290989[_0x394e0c(0xa9)](_0x11c44d=>{const _0x449bf8=_0x394e0c;let _0x2ba20b=GetEquipmentOfType(_0x11c44d),_0x58d4c2=wafersPerMonth/0xa0;for(let _0x434756=0x0;_0x434756<_0x2ba20b[_0x449bf8(0x95)];_0x434756++){while(_0x58d4c2>_0x2ba20b[_0x434756][_0x449bf8(0xcd)]){countOfEquipment[equipment[_0x449bf8(0xf1)](_0x2ba20b[_0x434756])]++,_0x58d4c2-=_0x2ba20b[_0x434756][_0x449bf8(0xcd)];}if(_0x434756<_0x2ba20b[_0x449bf8(0x95)]-0x1){let _0x5f0a7b=Math[_0x449bf8(0xa1)](_0x58d4c2/_0x2ba20b[_0x434756+0x1]['maxThroughput']);_0x2ba20b[_0x434756][_0x449bf8(0xdb)]<_0x2ba20b[_0x434756+0x1][_0x449bf8(0xdb)]*_0x5f0a7b&&(countOfEquipment[equipment[_0x449bf8(0xf1)](_0x2ba20b[_0x434756])]++,_0x58d4c2-=_0x2ba20b[_0x434756]['maxThroughput']);}}let _0xb92c98=equipment[_0x449bf8(0xf1)](GetEquipmentOfType(_0x11c44d)[GetEquipmentOfType(_0x11c44d)[_0x449bf8(0x95)]-0x1]);while(_0x58d4c2>0x0){countOfEquipment[_0xb92c98]++,_0x58d4c2-=equipment[_0xb92c98]['maxThroughput'];}});for(i=0x0;i<equipment[_0x394e0c(0x95)];i++){_0x493add+=equipment[i][_0x394e0c(0xdb)]*Math['pow'](countOfEquipment[i],equipment[i][_0x394e0c(0x86)]);}materials[_0x394e0c(0xa9)](_0xff4c48=>{const _0x4bd5d8=_0x394e0c;_0x5530a8+=_0xff4c48[_0x4bd5d8(0x9a)]*wafersPerMonth*months;});}else _0x493add=Math[_0x394e0c(0x89)](Math[_0x394e0c(0xd2)](wafersPerMonth/0xa0/equipment[0x5][_0x394e0c(0xcd)]),equipment[0x5][_0x394e0c(0x86)])*equipment[0x5][_0x394e0c(0xdb)],_0x5530a8=wafersPerMonth*months*0x3e8;let _0x12defc=Math['ceil'](wafersPerMonth/0xa0/workers[0x0]['maxThroughput']),_0x560641=_0x12defc*workers[0x0][_0x394e0c(0xf6)]*0xa0*months,_0x1d872b=0x0;indirectCosts['forEach'](_0x525f43=>{const _0x3c3df1=_0x394e0c;_0x1d872b+=_0x525f43[_0x3c3df1(0xf9)]*months;});let _0x563f65=(_0x560641+_0x1d872b+_0x5530a8+_0x493add)/months,_0x5a092d=_0x563f65*months,_0x1a8d86=_0x5a092d*(0x1+markup/0x64),_0x2a49ec=_0x1a8d86-_0x5a092d,_0x53de4f=_0x1a8d86/months/gramsPerMonth;DrawTimePriceLineChart(),DrawCostPieChart(_0x493add,_0x560641,_0x5530a8,_0x1d872b);let _0x45a57d=_0x563f65*(0x1+markup/0x64);DrawResultsBarChart(Math['round'](_0x493add),Math['round'](_0x560641/months),Math[_0x394e0c(0xa1)](_0x5530a8/months),Math['round'](_0x1d872b/months),Math[_0x394e0c(0xa1)](_0x45a57d)),DrawText(wafersPerMonth,_0x53de4f,_0x1a8d86,_0x493add,_0x5530a8,_0x560641,_0x1d872b,_0x2a49ec),CloseAllDetails(),ConsoleLogValues(wafersPerMonth,_0x53de4f,_0x1a8d86,_0x493add,_0x5530a8,_0x560641,_0x1d872b,_0x2a49ec);}function CloseAllDetails(){const _0x5801ff=a0_0x5a8aab;let _0xf0b514=document[_0x5801ff(0x9e)](_0x5801ff(0xef));if(_0xf0b514[_0x5801ff(0x77)]()){while(_0xf0b514[_0x5801ff(0xc2)]){_0xf0b514[_0x5801ff(0xc7)](_0xf0b514[_0x5801ff(0xc2)]);}_0xf0b514[_0x5801ff(0xe8)][_0x5801ff(0xaa)]=_0x5801ff(0xc1);}let _0xe3dff1=document[_0x5801ff(0x9e)](_0x5801ff(0xca));if(_0xe3dff1[_0x5801ff(0x77)]()){while(_0xe3dff1[_0x5801ff(0xc2)]){_0xe3dff1['removeChild'](_0xe3dff1[_0x5801ff(0xc2)]);}_0xe3dff1[_0x5801ff(0xe8)][_0x5801ff(0xaa)]=_0x5801ff(0xc1);}let _0x45ddb4=document[_0x5801ff(0x9e)](_0x5801ff(0xb5));if(_0x45ddb4[_0x5801ff(0x77)]()){while(_0x45ddb4['firstChild']){_0x45ddb4[_0x5801ff(0xc7)](_0x45ddb4[_0x5801ff(0xc2)]);}_0x45ddb4['style']['display']='none';}let _0x5d3ccf=document[_0x5801ff(0x9e)](_0x5801ff(0xe1));if(_0x5d3ccf[_0x5801ff(0x77)]()){while(_0x5d3ccf[_0x5801ff(0xc2)]){_0x5d3ccf[_0x5801ff(0xc7)](_0x5d3ccf[_0x5801ff(0xc2)]);}_0x5d3ccf['style'][_0x5801ff(0xaa)]=_0x5801ff(0xc1);}}function ToggleEquipmentDetails(){const _0x24608e=a0_0x5a8aab;let _0x328bd0=document[_0x24608e(0x9e)]('equipmentDetailHolder');if(_0x328bd0['hasChildNodes']()){while(_0x328bd0['firstChild']){_0x328bd0['removeChild'](_0x328bd0['firstChild']);}_0x328bd0[_0x24608e(0xe8)][_0x24608e(0xaa)]=_0x24608e(0xc1);}else{_0x328bd0['style']['display']=_0x24608e(0xe9);if(document[_0x24608e(0x9e)](_0x24608e(0xa4))[_0x24608e(0xd6)]==0x0)for(let _0x24def2=0x0;_0x24def2<equipment[_0x24608e(0x95)];_0x24def2++){if(countOfEquipment[_0x24def2]!==0x0){let _0x26c800=document[_0x24608e(0xc0)]('p'),_0x1247ee=document[_0x24608e(0xc0)]('p');_0x26c800[_0x24608e(0x79)]=countOfEquipment[_0x24def2]+'x\x20'+equipment[_0x24def2][_0x24608e(0xd9)]+':\x20'+equipment[_0x24def2][_0x24608e(0x8c)],_0x1247ee['textContent']=new Intl['NumberFormat'](_0x24608e(0xf0),{'style':_0x24608e(0xb6),'currency':_0x24608e(0x81),'minimumFractionDigits':0x0})[_0x24608e(0xaf)](Math[_0x24608e(0xa1)](equipment[_0x24def2]['cost']*countOfEquipment[_0x24def2]*PerUnitFactor(_0x24608e(0xd8),wafersPerMonth,months))),_0x26c800[_0x24608e(0xe8)][_0x24608e(0xc4)]=0x1,_0x1247ee['style'][_0x24608e(0xc4)]=0x1,_0x1247ee[_0x24608e(0xe8)]['minWidth']=_0x24608e(0xec),_0x1247ee['style'][_0x24608e(0x7d)]=_0x24608e(0xd7),_0x328bd0[_0x24608e(0xa8)](_0x26c800),_0x328bd0[_0x24608e(0xa8)](_0x1247ee);}}else{let _0xf5d1ad=document[_0x24608e(0xc0)]('p');_0xf5d1ad[_0x24608e(0x79)]='-',_0xf5d1ad[_0x24608e(0xe8)][_0x24608e(0xc4)]=0x1,_0x328bd0[_0x24608e(0xa8)](_0xf5d1ad);}}}function ToggleMaterialDetails(){const _0x47563d=a0_0x5a8aab;let _0x24d61c=document[_0x47563d(0x9e)]('materialsDetailHolder');if(_0x24d61c[_0x47563d(0x77)]()){while(_0x24d61c[_0x47563d(0xc2)]){_0x24d61c['removeChild'](_0x24d61c['firstChild']);}_0x24d61c[_0x47563d(0xe8)]['display']=_0x47563d(0xc1);}else{_0x24d61c[_0x47563d(0xe8)][_0x47563d(0xaa)]=_0x47563d(0xe9);if(document[_0x47563d(0x9e)](_0x47563d(0xa4))[_0x47563d(0xd6)]==0x0)for(let _0x11debb=0x0;_0x11debb<materials[_0x47563d(0x95)];_0x11debb++){let _0x1c0fd4=document[_0x47563d(0xc0)]('p'),_0x593f3a=document[_0x47563d(0xc0)]('p');_0x1c0fd4[_0x47563d(0x79)]=materials[_0x11debb][_0x47563d(0xd9)],_0x593f3a[_0x47563d(0x79)]=new Intl['NumberFormat'](_0x47563d(0xf0),{'style':_0x47563d(0xb6),'currency':'USD','minimumFractionDigits':0x0})[_0x47563d(0xaf)](Math[_0x47563d(0xa1)](materials[_0x11debb]['costPerWafer']*wafersPerMonth*months*PerUnitFactor(_0x47563d(0xd8),wafersPerMonth,months))),_0x1c0fd4['style'][_0x47563d(0xc4)]=0x1,_0x1c0fd4[_0x47563d(0xe8)][_0x47563d(0x7b)]=_0x47563d(0xa0),_0x593f3a[_0x47563d(0xe8)][_0x47563d(0xc4)]=0x1,_0x593f3a[_0x47563d(0xe8)][_0x47563d(0x7b)]=_0x47563d(0xa0),_0x593f3a[_0x47563d(0xe8)][_0x47563d(0x7d)]=_0x47563d(0xd7),_0x24d61c['appendChild'](_0x1c0fd4),_0x24d61c[_0x47563d(0xa8)](_0x593f3a);}else{let _0x4bc51e=document[_0x47563d(0xc0)]('p'),_0x54907b=document[_0x47563d(0xc0)]('p');_0x4bc51e[_0x47563d(0x79)]=_0x47563d(0xa2),_0x54907b[_0x47563d(0x79)]=new Intl[(_0x47563d(0xf2))](_0x47563d(0xf0),{'style':'currency','currency':_0x47563d(0x81),'minimumFractionDigits':0x0})[_0x47563d(0xaf)](Math[_0x47563d(0xa1)](0x3e8*wafersPerMonth*months*PerUnitFactor(_0x47563d(0xd8),wafersPerMonth,months))),_0x4bc51e[_0x47563d(0xe8)][_0x47563d(0xc4)]=0x1,_0x4bc51e[_0x47563d(0xe8)]['minWidth']='40%',_0x54907b[_0x47563d(0xe8)]['flexGrow']=0x1,_0x54907b[_0x47563d(0xe8)][_0x47563d(0x7b)]='40%',_0x54907b['style'][_0x47563d(0x7d)]=_0x47563d(0xd7),_0x24d61c[_0x47563d(0xa8)](_0x4bc51e),_0x24d61c[_0x47563d(0xa8)](_0x54907b);}}}function ToggleLaborDetails(){const _0x32966f=a0_0x5a8aab;let _0x19681e=document[_0x32966f(0x9e)](_0x32966f(0xb5));if(_0x19681e[_0x32966f(0x77)]()){while(_0x19681e[_0x32966f(0xc2)]){_0x19681e[_0x32966f(0xc7)](_0x19681e[_0x32966f(0xc2)]);}_0x19681e[_0x32966f(0xe8)][_0x32966f(0xaa)]='none';}else{_0x19681e['style'][_0x32966f(0xaa)]='flex';for(let _0x2a49c6=0x0;_0x2a49c6<workers[_0x32966f(0x95)];_0x2a49c6++){let _0x26c4b7=document[_0x32966f(0xc0)]('p'),_0x3fb231=document[_0x32966f(0xc0)]('p');_0x26c4b7['textContent']=Math['ceil'](wafersPerMonth/0xa0/workers[_0x2a49c6][_0x32966f(0xcd)])+_0x32966f(0x7c)+workers[_0x2a49c6]['type'],_0x3fb231[_0x32966f(0x79)]=new Intl[(_0x32966f(0xf2))](_0x32966f(0xf0),{'style':_0x32966f(0xb6),'currency':_0x32966f(0x81),'minimumFractionDigits':0x0})['format'](Math[_0x32966f(0xa1)](workers[_0x2a49c6]['hourlySalary']*0x28*0x34/0xc*months*PerUnitFactor(_0x32966f(0xd8),wafersPerMonth,months))),_0x26c4b7['style'][_0x32966f(0xc4)]=0x1,_0x26c4b7[_0x32966f(0xe8)][_0x32966f(0x7b)]=_0x32966f(0xa0),_0x3fb231['style'][_0x32966f(0xc4)]=0x1,_0x3fb231['style'][_0x32966f(0x7b)]=_0x32966f(0xa0),_0x3fb231[_0x32966f(0xe8)]['textAlign']='right',_0x19681e['appendChild'](_0x26c4b7),_0x19681e[_0x32966f(0xa8)](_0x3fb231);}}}function ToggleIndirectDetails(){const _0x8d1cbe=a0_0x5a8aab;let _0x1421c3=document[_0x8d1cbe(0x9e)](_0x8d1cbe(0xe1));if(_0x1421c3['hasChildNodes']()){while(_0x1421c3['firstChild']){_0x1421c3[_0x8d1cbe(0xc7)](_0x1421c3[_0x8d1cbe(0xc2)]);}_0x1421c3['style']['display']=_0x8d1cbe(0xc1);}else{_0x1421c3[_0x8d1cbe(0xe8)]['display']=_0x8d1cbe(0xe9);for(let _0x476f9c=0x0;_0x476f9c<indirectCosts['length'];_0x476f9c++){let _0x310b50=document[_0x8d1cbe(0xc0)]('p'),_0x2274fd=document[_0x8d1cbe(0xc0)]('p');_0x310b50[_0x8d1cbe(0x79)]=indirectCosts[_0x476f9c][_0x8d1cbe(0xd9)],_0x2274fd['textContent']=new Intl['NumberFormat'](_0x8d1cbe(0xf0),{'style':_0x8d1cbe(0xb6),'currency':'USD','minimumFractionDigits':0x0})[_0x8d1cbe(0xaf)](Math[_0x8d1cbe(0xa1)](indirectCosts[_0x476f9c][_0x8d1cbe(0xf9)]*months*PerUnitFactor(_0x8d1cbe(0xd8),wafersPerMonth,months))),_0x310b50['style'][_0x8d1cbe(0xc4)]=0x1,_0x310b50[_0x8d1cbe(0xe8)][_0x8d1cbe(0x7b)]='40%',_0x2274fd[_0x8d1cbe(0xe8)][_0x8d1cbe(0xc4)]=0x1,_0x2274fd[_0x8d1cbe(0xe8)]['minWidth']=_0x8d1cbe(0xa0),_0x2274fd[_0x8d1cbe(0xe8)]['textAlign']=_0x8d1cbe(0xd7),_0x1421c3[_0x8d1cbe(0xa8)](_0x310b50),_0x1421c3['appendChild'](_0x2274fd);}}}function ConsoleLogValues(_0x4cdc00,_0x47ce36,_0x18dd73,_0x4a3b4d,_0xeb2ef,_0x3f4f4e,_0x553a53,_0x48d0f1){const _0x1a35d5=a0_0x5a8aab;console['log']('wafersPerMonth:\x20'+_0x4cdc00),console[_0x1a35d5(0x9f)](_0x1a35d5(0xf4)+months),console[_0x1a35d5(0x9f)](_0x1a35d5(0xea)+gramsPerMonth),console[_0x1a35d5(0x9f)](_0x1a35d5(0xe7)+markup),console[_0x1a35d5(0x9f)](_0x1a35d5(0xad)),equipment[_0x1a35d5(0xa9)](_0x1cc46e=>{const _0x187602=_0x1a35d5;console[_0x187602(0x9f)](_0x1cc46e[_0x187602(0x8c)]+':\x20'+countOfEquipment[equipment['indexOf'](_0x1cc46e)]);}),console[_0x1a35d5(0x9f)]('totalEquipmentCost:\x20'+_0x4a3b4d),console[_0x1a35d5(0x9f)](_0x1a35d5(0x83)+_0x3f4f4e),console[_0x1a35d5(0x9f)](_0x1a35d5(0x9c)+_0xeb2ef),console[_0x1a35d5(0x9f)](_0x1a35d5(0x8e)+_0x553a53),console[_0x1a35d5(0x9f)](_0x1a35d5(0xd5)+_0x48d0f1),console[_0x1a35d5(0x9f)](_0x1a35d5(0xc5)+_0x18dd73),console[_0x1a35d5(0x9f)]('pricePerGram:\x20'+_0x47ce36);}function DrawText(_0x187862,_0x4ba0cb,_0x3fe62e,_0x3b5cf2,_0x3cc4bf,_0x78522e,_0x3d62f4,_0x5bfd60){const _0xf28354=a0_0x5a8aab;let _0x4326d2;switch(document[_0xf28354(0x9e)](_0xf28354(0x76))[_0xf28354(0xd6)]){case _0xf28354(0x7a):_0x4326d2=months;break;case _0xf28354(0xe0):_0x4326d2=0xc;break;case _0xf28354(0xfb):_0x4326d2=0x1;break;case'day':_0x4326d2=0xc/0x16d;break;}UpdateTextContent('waferVolumeText',Math[_0xf28354(0xa1)](_0x187862*_0x4326d2));switch(document[_0xf28354(0x9e)](_0xf28354(0xa6))[_0xf28354(0xd6)]){case _0xf28354(0x87):_0x4326d2=0x1;break;case'kg':_0x4326d2=0x1/0x3e8;break;case _0xf28354(0x9b):_0x4326d2=0x1/453.6;break;case'km':_0x4326d2=6.5/0x5;break;case'm':_0x4326d2=6.5/0x5*0x3e8;break;case'ft':_0x4326d2=6.5/0x5*0x3e8*3.048;break;}UpdateTextContent(_0xf28354(0xfc),Math[_0xf28354(0xa1)](gramsPerMonth*months*_0x4326d2*0x64)/0x64);switch(document['getElementById'](_0xf28354(0xb8))['value']){case _0xf28354(0x87):_0x4326d2=0x1;break;case'kg':_0x4326d2=0x3e8;break;case _0xf28354(0x9b):_0x4326d2=453.592;break;case'km':_0x4326d2=0x5/6.5;break;case'm':_0x4326d2=0x5/6.5/0x3e8;break;case'ft':_0x4326d2=0x5/6.5/0x3e8/3.048;break;}UpdateTextContent('pricePerAmount',new Intl[(_0xf28354(0xf2))](_0xf28354(0xf0),{'style':_0xf28354(0xb6),'currency':_0xf28354(0x81),'maximumFractionDigits':0x0})['format'](Math[_0xf28354(0xa1)](_0x4ba0cb*_0x4326d2))),UpdateTextContent(_0xf28354(0xda),new Intl[(_0xf28354(0xf2))](_0xf28354(0xf0),{'style':_0xf28354(0xb6),'currency':_0xf28354(0x81),'maximumFractionDigits':0x0})[_0xf28354(0xaf)](Math[_0xf28354(0xa1)](_0x3fe62e))),UpdateTextContent('totalCost',new Intl[(_0xf28354(0xf2))](_0xf28354(0xf0),{'style':_0xf28354(0xb6),'currency':_0xf28354(0x81),'maximumFractionDigits':0x0})[_0xf28354(0xaf)](Math['round'](_0x3b5cf2+_0x3cc4bf+_0x78522e+_0x3d62f4)*PerUnitFactor(_0xf28354(0xd8),_0x187862,months))),UpdateTextContent('equipmentCost',new Intl[(_0xf28354(0xf2))]('en-US',{'style':_0xf28354(0xb6),'currency':_0xf28354(0x81),'maximumFractionDigits':0x0})['format'](Math['round'](_0x3b5cf2*PerUnitFactor('totalCostUnit',_0x187862,months)))),UpdateTextContent(_0xf28354(0xb9),new Intl[(_0xf28354(0xf2))]('en-US',{'style':_0xf28354(0xb6),'currency':'USD','maximumFractionDigits':0x0})['format'](Math[_0xf28354(0xa1)](_0x3cc4bf*PerUnitFactor(_0xf28354(0xd8),_0x187862,months)))),UpdateTextContent(_0xf28354(0xcf),new Intl[(_0xf28354(0xf2))]('en-US',{'style':'currency','currency':_0xf28354(0x81),'maximumFractionDigits':0x0})[_0xf28354(0xaf)](Math['round'](_0x78522e*PerUnitFactor(_0xf28354(0xd8),_0x187862,months)))),UpdateTextContent('indirectCost',new Intl[(_0xf28354(0xf2))](_0xf28354(0xf0),{'style':_0xf28354(0xb6),'currency':_0xf28354(0x81),'maximumFractionDigits':0x0})[_0xf28354(0xaf)](Math['round'](_0x3d62f4*PerUnitFactor('totalCostUnit',_0x187862,months)))),UpdateTextContent(_0xf28354(0xba),new Intl[(_0xf28354(0xf2))]('en-US',{'style':'currency','currency':_0xf28354(0x81),'maximumFractionDigits':0x0})[_0xf28354(0xaf)](Math[_0xf28354(0xa1)](_0x3b5cf2+_0x3cc4bf+_0x78522e+_0x3d62f4)*(0x1+markup/0x64)*PerUnitFactor('revenueUnit',_0x187862,months))),UpdateTextContent(_0xf28354(0x88),new Intl[(_0xf28354(0xf2))]('en-US',{'style':_0xf28354(0xb6),'currency':_0xf28354(0x81),'maximumFractionDigits':0x0})['format'](Math[_0xf28354(0xa1)](_0x5bfd60*PerUnitFactor(_0xf28354(0xbf),_0x187862,months))));}function UpdateTextContent(_0x50b6de,_0x1d1804){const _0x35cd83=a0_0x5a8aab;let _0x482c3a=document['getElementById'](_0x50b6de);_0x482c3a[_0x35cd83(0x79)]!=_0x1d1804&&(_0x482c3a[_0x35cd83(0xf5)][_0x35cd83(0xc9)](_0x35cd83(0x8a)),setTimeout(()=>{const _0x13bd28=_0x35cd83;_0x482c3a[_0x13bd28(0x79)]=_0x1d1804,_0x482c3a[_0x13bd28(0xf5)]['remove'](_0x13bd28(0x8a));},0xc8));}function PerUnitFactor(_0x2bd482){const _0x5d9b51=a0_0x5a8aab;switch(document['getElementById'](_0x2bd482)[_0x5d9b51(0xd6)]){case _0x5d9b51(0x7a):return 0x1;case _0x5d9b51(0xfb):return 0x1/months;case _0x5d9b51(0x87):return 0x1/(wafersPerMonth*months*(0x1/(6.5/0x5*0x5)));case'kg':return 0x3e8/(wafersPerMonth*months*(0x1/(6.5/0x5*0x5)));case _0x5d9b51(0x9b):return 453.592/(wafersPerMonth*months*(0x1/(6.5/0x5*0x5)));case'km':return 0x5/(6.5*wafersPerMonth*months*(0x1/(6.5/0x5*0x5)));case'm':return 0x5/(6.5*0x3e8*wafersPerMonth*months*(0x1/(6.5/0x5*0x5)));case'ft':return 0x5/(3.28084*6.5*0x3e8*wafersPerMonth*months*(0x1/(6.5/0x5*0x5)));}throw new Error(_0x5d9b51(0xdc));return null;}function a0_0x2179(_0x3fed3e,_0x2a8563){const _0x455deb=a0_0x455d();return a0_0x2179=function(_0x217906,_0x16f0d9){_0x217906=_0x217906-0x76;let _0x2d4b0a=_0x455deb[_0x217906];return _0x2d4b0a;},a0_0x2179(_0x3fed3e,_0x2a8563);}function a0_0x455d(){const _0x3278ff=['Laser\x20Engraver','pricePerAmountUnit','materialCost','revenue','resultsBarChart','854991bnKhZI','Equipment','Silicon\x20Wafers','profitUnit','createElement','none','firstChild','Material','flexGrow','totalPrice:\x20','Ray5\x205W','removeChild','Acetylene\x20Gas','add','materialsDetailHolder','CostPerGramFunction,\x20grams\x20per\x20month:\x20','sort','maxThroughput','#0AD3FF','laborCost','Spinning\x20Machine','440536LMrSBl','ceil','bar','70kvPiKg','totalProfits:\x20','value','right','totalCostUnit','type','price','cost','ERROR!\x20Couldn\x27t\x20match\x20selected\x20unit\x20to\x20factor','#292929','Indirect','CostPerGramFunction,\x20total\x20material\x20cost:\x20','year','indirectDetailHolder','line','Iron\x20Pellets','23268gtLtoW','CVD','labels','markup:\x20','style','flex','gramsPerMonth:\x20','CostPerGramFunction,\x20total\x20equipment\x20cost:\x20','30%','E-Gun\x20Evaporator','CostPerGramFunction,\x20total\x20labor\x20cost:\x20','equipmentDetailHolder','en-US','indexOf','NumberFormat','#585563','months:\x20','classList','hourlySalary','Easytube\x203000\x20EXT','24kFovpJ','monthlyCost','rgb(255,\x20255,\x20255)','month','productionVolumeText','waferVolumeUnit','hasChildNodes','9hOCQwX','textContent','total','minWidth','\x20x\x20','textAlign','Labor','CostPerGramFunction,\x20cost\x20per\x20gram:\x20','time','USD','update','totalLaborCosts:\x20','markup','amount','costExponent','grams','profit','pow','fadeOut','Engineer','name','219690pnnflb','totalIndirectCosts:\x20','yellow','Materials','2544496Cnhyef','#73937E','Easytube\x203000','5395995YqfpZI','length','#aa54ab','1780010DHeViR','timePriceChart','data','costPerWafer','lbs','totalMaterialCosts:\x20','amountUnit','getElementById','log','40%','round','Lintec\x20Wafers','rgb(200,\x20200,\x20200)','productionMode','Electricity','productionVolumeUnit','pie','appendChild','forEach','display','bottom','Argon\x20Gas','Equipment:\x20','costPieChart','format','datasets','CostPerGramFunction,\x20total\x20indirect\x20cost:\x20','CHA\x20Mark\x2050','#FF7719','Custom','laborDetailHolder','currency'];a0_0x455d=function(){return _0x3278ff;};return a0_0x455d();}function DrawResultsBarChart(_0x5e0587,_0x306525,_0x99cf60,_0x4ae7a1,_0x2fb781){const _0x1012d0=a0_0x5a8aab;let _0x39f40d=[],_0x4f3b58=[],_0xcd9fe5=[],_0x23d3b3=[],_0x503533=[],_0xcf1786=[],_0x114149=[];for(let _0x20bcaf=0x0;_0x20bcaf<months;_0x20bcaf++){_0x39f40d[_0x20bcaf]=0x0,_0x4f3b58[_0x20bcaf]=-0x1*_0x306525,_0xcd9fe5[_0x20bcaf]=-0x1*_0x99cf60,_0x23d3b3[_0x20bcaf]=-0x1*_0x4ae7a1,_0x503533[_0x20bcaf]=_0x2fb781,_0x114149[_0x20bcaf]=_0x20bcaf+0x1,_0x20bcaf>0x0?_0xcf1786[_0x20bcaf]=_0xcf1786[_0x20bcaf-0x1]+_0x4f3b58[_0x20bcaf]+_0xcd9fe5[_0x20bcaf]+_0x23d3b3[_0x20bcaf]+_0x503533[_0x20bcaf]:_0xcf1786[_0x20bcaf]=_0x4f3b58[_0x20bcaf]+_0xcd9fe5[_0x20bcaf]+_0x23d3b3[_0x20bcaf]+_0x503533[_0x20bcaf]-_0x5e0587;}_0x39f40d[0x0]=-0x1*_0x5e0587;let _0x26cec5=document[_0x1012d0(0x9e)](_0x1012d0(0xbb));resultsBarChart!==null?(resultsBarChart[_0x1012d0(0x99)][_0x1012d0(0xb0)][0x0][_0x1012d0(0x99)]=_0x39f40d,resultsBarChart['data']['datasets'][0x1]['data']=_0x4f3b58,resultsBarChart['data'][_0x1012d0(0xb0)][0x2][_0x1012d0(0x99)]=_0xcd9fe5,resultsBarChart[_0x1012d0(0x99)][_0x1012d0(0xb0)][0x3][_0x1012d0(0x99)]=_0x23d3b3,resultsBarChart[_0x1012d0(0x99)]['datasets'][0x4]['data']=_0x503533,resultsBarChart[_0x1012d0(0x99)][_0x1012d0(0xb0)][0x5][_0x1012d0(0x99)]=_0xcf1786,resultsBarChart['data'][_0x1012d0(0xe6)]=_0x114149,resultsBarChart['update']()):resultsBarChart=new Chart(_0x26cec5,{'type':_0x1012d0(0xd3),'data':{'labels':_0x114149,'datasets':[{'label':_0x1012d0(0xbd),'data':_0x39f40d,'backgroundColor':'#FF7719','borderWidth':0x0,'order':0x1},{'label':_0x1012d0(0x7e),'data':_0x4f3b58,'backgroundColor':'#c75138','order':0x1},{'label':_0x1012d0(0x90),'data':_0xcd9fe5,'backgroundColor':_0x1012d0(0x8f),'order':0x1},{'label':_0x1012d0(0xde),'data':_0x23d3b3,'backgroundColor':_0x1012d0(0x96),'order':0x1},{'label':'Revenue','data':_0x503533,'backgroundColor':'#55aa7e','order':0x1},{'label':'Total\x20profit','data':_0xcf1786,'backgroundColor':_0x1012d0(0xce),'type':_0x1012d0(0xe2),'borderWidth':0x1,'borderColor':_0x1012d0(0xce),'order':0x0}]},'options':{'responsive':!![],'plugins':{'legend':{'display':!![],'position':_0x1012d0(0xab),'labels':{'color':_0x1012d0(0xa3),'font':{'weight':'normal'}}}},'scales':{'x':{'stacked':!![],'ticks':{'display':![]}},'y':{'stacked':!![],'beginAtZero':!![],'ticks':{'display':![]}}}}});}function DrawCostPieChart(_0x279a26,_0x11c91d,_0xe72f4a,_0x492fbe){const _0x4413eb=a0_0x5a8aab,_0x52ef6c=[_0x4413eb(0xbd),_0x4413eb(0x7e),_0x4413eb(0xc3),_0x4413eb(0xde)];let _0x5bcf03=[Math[_0x4413eb(0xa1)](_0x279a26),Math['round'](_0x11c91d),Math[_0x4413eb(0xa1)](_0xe72f4a),Math[_0x4413eb(0xa1)](_0x492fbe)];const _0x2283fa=[_0x4413eb(0xb3),_0x4413eb(0x92),_0x4413eb(0xf3),_0x4413eb(0xce)];costPieChart!==null?(costPieChart[_0x4413eb(0x99)][_0x4413eb(0xb0)][0x0]['data']=_0x5bcf03,costPieChart[_0x4413eb(0x82)]()):costPieChart=new Chart(document[_0x4413eb(0x9e)](_0x4413eb(0xae)),{'type':_0x4413eb(0xa7),'data':{'labels':_0x52ef6c,'datasets':[{'backgroundColor':_0x2283fa,'borderColor':_0x4413eb(0xdd),'borderWidth':0x0,'data':_0x5bcf03}]},'options':{'radius':0x64,'responsive':!![],'plugins':{'legend':{'display':!![],'position':_0x4413eb(0xd7),'labels':{'color':_0x4413eb(0xfa)}}}}});}function DrawTimePriceLineChart(){const _0xc3a620=a0_0x5a8aab;let _0x454f0c=0x14,_0x1fb53f=[],_0x3e36b3=[];for(let _0x233fb8=0x0;_0x233fb8<_0x454f0c;_0x233fb8++){_0x1fb53f[_0x233fb8]=_0x233fb8+0x1;}for(let _0x139260=0x0;_0x139260<_0x1fb53f[_0xc3a620(0x95)];_0x139260++){_0x3e36b3[_0x139260]=Math[_0xc3a620(0xa1)](CostPerGram(_0x1fb53f[_0x139260])*(0x1+markup/0x64));}timeCostLineChart!==null?(timeCostLineChart[_0xc3a620(0x99)][_0xc3a620(0xe6)]=_0x1fb53f,timeCostLineChart[_0xc3a620(0x99)][_0xc3a620(0xb0)][0x0][_0xc3a620(0x99)]=_0x3e36b3,timeCostLineChart[_0xc3a620(0x82)]()):timeCostLineChart=new Chart(document['getElementById'](_0xc3a620(0x98)),{'type':_0xc3a620(0xe2),'data':{'labels':_0x1fb53f,'datasets':[{'fill':![],'lineTension':0.5,'backgroundColor':_0xc3a620(0xb3),'borderColor':_0xc3a620(0xb3),'data':_0x3e36b3,'borderWidth':0x2}]},'options':{'plugins':{'legend':{'display':![]}},'scales':{'x':{'grid':{'display':![]}},'y':{'grid':{'display':![]},'beginAtZero':!![]}}}});}function CostPerGram(_0xd5bc46){const _0x264c21=a0_0x5a8aab;console[_0x264c21(0x9f)](_0x264c21(0xcb)+_0xd5bc46);let _0x2be2ff=_0xd5bc46*6.5/0x5*0x5;console[_0x264c21(0x9f)]('CostPerGramFunction,\x20wafers\x20per\x20month:\x20'+_0x2be2ff);let _0x124272=0x0,_0x223dd5=0x0,_0x1d2db2=[0x0,0x0,0x0,0x0,0x0,0x0];if(document['getElementById'](_0x264c21(0xa4))[_0x264c21(0xd6)]==0x0){let _0x48ed90=['E-Gun\x20Evaporator',_0x264c21(0xe5),_0x264c21(0xb7),_0x264c21(0xd0)];_0x48ed90['forEach'](_0x43ec3d=>{const _0x35d819=_0x264c21;let _0xe30def=GetEquipmentOfType(_0x43ec3d),_0x3928ff=_0x2be2ff/0xa0;for(let _0x1196af=0x0;_0x1196af<_0xe30def[_0x35d819(0x95)];_0x1196af++){while(_0x3928ff>_0xe30def[_0x1196af][_0x35d819(0xcd)]){_0x1d2db2[equipment[_0x35d819(0xf1)](_0xe30def[_0x1196af])]++,_0x3928ff-=_0xe30def[_0x1196af][_0x35d819(0xcd)];}if(_0x1196af<_0xe30def['length']-0x1){let _0x2c509c=Math[_0x35d819(0xa1)](_0x3928ff/_0xe30def[_0x1196af+0x1][_0x35d819(0xcd)]);_0xe30def[_0x1196af][_0x35d819(0xdb)]<_0xe30def[_0x1196af+0x1][_0x35d819(0xdb)]*_0x2c509c&&(_0x1d2db2[equipment[_0x35d819(0xf1)](_0xe30def[_0x1196af])]++,_0x3928ff-=_0xe30def[_0x1196af]['maxThroughput']);}}let _0x2cea91=equipment[_0x35d819(0xf1)](GetEquipmentOfType(_0x43ec3d)[GetEquipmentOfType(_0x43ec3d)[_0x35d819(0x95)]-0x1]);while(_0x3928ff>0x0){_0x1d2db2[_0x2cea91]++,_0x3928ff-=equipment[_0x2cea91]['maxThroughput'];}});for(i=0x0;i<equipment['length'];i++){_0x124272+=equipment[i][_0x264c21(0xdb)]*Math[_0x264c21(0x89)](_0x1d2db2[i],equipment[i]['costExponent']);}materials[_0x264c21(0xa9)](_0x5a01fb=>{_0x223dd5+=_0x5a01fb['costPerWafer']*_0x2be2ff*months;});}else _0x124272=Math[_0x264c21(0x89)](Math['ceil'](_0x2be2ff/0xa0/equipment[0x5]['maxThroughput']),equipment[0x5][_0x264c21(0x86)])*equipment[0x5]['cost'],_0x223dd5=_0x2be2ff*months*0x3e8;console[_0x264c21(0x9f)](_0x264c21(0xeb)+_0x124272),console[_0x264c21(0x9f)](_0x264c21(0xdf)+_0x223dd5);let _0x1cc958=Math[_0x264c21(0xd2)](_0x2be2ff/0xa0/workers[0x0][_0x264c21(0xcd)]),_0x1580ae=_0x1cc958*workers[0x0]['hourlySalary']*0xa0*months;console[_0x264c21(0x9f)](_0x264c21(0xee)+_0x1580ae);let _0x2a3849=0x0;indirectCosts[_0x264c21(0xa9)](_0x5cad70=>{const _0x3ec7c5=_0x264c21;_0x2a3849+=_0x5cad70[_0x3ec7c5(0xf9)]*months;}),console[_0x264c21(0x9f)](_0x264c21(0xb1)+_0x2a3849);let _0x1bcfdb=(_0x1580ae+_0x2a3849+_0x223dd5+_0x124272)/months;return console[_0x264c21(0x9f)](_0x264c21(0x7f)+_0x1bcfdb/_0xd5bc46),_0x1bcfdb/_0xd5bc46;}
+"use strict";
+
+class Equipment {
+    constructor(type, name, cost, maxThroughput, costExponent) {
+        this.type = type;
+        this.name = name;
+        this.cost = cost;
+        this.maxThroughput = maxThroughput;
+        this.costExponent = costExponent;
+    }
+}
+
+class Material {
+    constructor(type, costPerWafer) {
+        this.type = type;
+        this.costPerWafer = costPerWafer;
+    }
+}
+
+// Tasks that workers have to carry out
+// taskTime is the time it takes to complete the task in hours per speaker
+class WorkerTask{
+    constructor(task, taskTime){
+        this.task = task;
+        this.taskTime = taskTime;
+    }
+}
+
+class IndirectCost {
+    constructor(type, monthlyCost) {
+        this.type = type;
+        this.monthlyCost = monthlyCost;
+    }
+}
+
+const equipment = [];
+equipment[0] = new Equipment("CVD", "Easytube 3000", 185000, 0.75, 1);
+equipment[1] = new Equipment("CVD", "Easytube 3000 EXT", 250000, 32, 1);
+equipment[2] = new Equipment("CVD", "Easytube 6000", 800000, 200, 1);
+equipment[3] = new Equipment("Laser Engraver", "Ray5 5W", 250, 50, 1);
+equipment[4] = new Equipment("E-Gun Evaporator", "CHA Mark 50", 140000, 6, 1);
+equipment[5] = new Equipment("Spinning Machine", "Custom", 2000, 1 / 4, 0.8);
+
+const materials = [];
+materials[0] = new Material("Silicon Wafers", 200 / 5);
+materials[1] = new Material("Iron Pellets", 6.7 / 5);
+materials[2] = new Material("Acetylene Gas", 4.41 / 5);
+materials[3] = new Material("Hydrogen Gas", 3.5154 / 5);
+materials[4] = new Material("Argon Gas", 5.7246 / 5);
+materials[5] = new Material("Purchased Wafers", 1000);
+
+const workerTasks = [];
+workerTasks[0] = new WorkerTask("Run E-gun Evaporator", 1);
+workerTasks[1] = new WorkerTask("Run CVD Furnace", 1);
+workerTasks[2] = new WorkerTask("Laser Etching", 10/60);
+workerTasks[3] = new WorkerTask("Spinning", 20/5);
+
+const indirectCosts = [];
+indirectCosts[0] = new IndirectCost("Rent", 4000);
+indirectCosts[1] = new IndirectCost("Electricity", 120);
+
+let gramsPerMonth = 1 / 6.5 * 5 / 10;
+let amountFactor = 1;
+let months = 0;
+let markup = 0;
+let wafersPerMonth;
+let countOfEquipment = [0, 0, 0, 0, 0, 0];
+
+let hourlySalaryEngineer = 62.5;
+
+let timeCostLineChart = null;
+let costPieChart = null;
+let resultsBarChart = null;
+
+// Runs the calculator to correct the placeholder numbers at start
+AmountUnitChanged();
+
+function AmountUnitChanged() {
+    switch (document.getElementById("amountUnit").value) {
+        case "grams":
+            amountFactor = 1;
+            break;
+        case "kg":
+            amountFactor = 1 / 1000;
+            break;
+        case "lbs":
+            amountFactor = 1 / 453.592;
+            break;
+        case "km":
+            amountFactor = 6.5 / 5;
+            break;
+        case "m":
+            amountFactor = 6.5 / 5 * 1000;
+            break;
+        case "ft":
+            amountFactor = 6.5 / 5 * 1000 * 3.28084;
+    }
+    document.getElementById("amount").value = Math.round(gramsPerMonth * amountFactor * 100) / 100;
+    RunCalculator();
+}
+
+function CompareEquipment(e1, e2) {
+    if (e1.maxThroughput < e2.maxThroughput)
+        return 1;
+    else
+        return -1;
+}
+
+function GetEquipmentOfType(type) {
+    let count = 0;
+    equipment.forEach((equipment) => {
+        if (equipment.type === type)
+            count++;
+    });
+
+    let equipmentOfType = new Array(count);
+    let index = 0;
+    equipment.forEach((equipment) => {
+        if (equipment.type === type) {
+            equipmentOfType[index] = equipment;
+            index++;
+        }
+    });
+
+    // Sorts the array from the largest capacity to the smallest
+    equipmentOfType.sort(CompareEquipment);
+
+    return equipmentOfType;
+}
+
+function RunCalculator() {
+
+    gramsPerMonth = document.getElementById("amount").value / amountFactor;
+    months = document.getElementById("time").value;
+    markup = document.getElementById("markup").value;
+
+    wafersPerMonth = gramsPerMonth * 6.5 / 5 * 5;
+
+    let totalEquipmentCost = 0;
+    let totalMaterialCosts = 0;
+    let totalLaborCosts = 0;
+    countOfEquipment = [0, 0, 0, 0, 0, 0];
+
+    if (document.getElementById("productionMode").value == 0) {
+        let types = ["E-Gun Evaporator", "CVD", "Laser Engraver", "Spinning Machine"];
+        types.forEach((type) => {
+            let eq = GetEquipmentOfType(type);
+            let wafersPerHourLeft = wafersPerMonth / 160;
+
+            for (let i = 0; i < eq.length; i++) {
+                while (wafersPerHourLeft > eq[i].maxThroughput) {
+                    countOfEquipment[equipment.indexOf(eq[i])]++;
+                    wafersPerHourLeft -= eq[i].maxThroughput;
+                }
+                if (i < eq.length - 1) {
+                    let count = Math.round(wafersPerHourLeft / eq[i + 1].maxThroughput);
+                    if (eq[i].cost < eq[i + 1].cost * count) {
+                        countOfEquipment[equipment.indexOf(eq[i])]++;
+                        wafersPerHourLeft -= eq[i].maxThroughput;
+                    }
+                }
+            }
+            let indexOfFinal = equipment.indexOf(GetEquipmentOfType(type)[GetEquipmentOfType(type).length - 1]);
+            while (wafersPerHourLeft > 0) {
+                countOfEquipment[indexOfFinal]++;
+                wafersPerHourLeft -= equipment[indexOfFinal].maxThroughput;
+            }
+        });
+
+        for (let i = 0; i < equipment.length; i++) {
+            totalEquipmentCost += equipment[i].cost * Math.pow(countOfEquipment[i], equipment[i].costExponent);
+        }
+
+        for (let i = 0; i < materials.length - 1; i++){
+            const material = materials[i];
+            totalMaterialCosts += material.costPerWafer * wafersPerMonth * months;
+        }
+
+        for (let i = 0; i < workerTasks.length; i++) {
+            totalLaborCosts += workerTasks[i].taskTime * wafersPerMonth * months * hourlySalaryEngineer;
+        }
+    }
+    else {
+        totalEquipmentCost = Math.pow(Math.ceil(wafersPerMonth / 160 / equipment[5].maxThroughput), equipment[5].costExponent) * equipment[5].cost;
+
+        for (let i = materials.length - 1; i < materials.length; i++){
+            const material = materials[i];
+            totalMaterialCosts += material.costPerWafer * wafersPerMonth * months;
+        }
+
+        for (let i = 3; i < workerTasks.length; i++) {
+            totalLaborCosts += workerTasks[i].taskTime * wafersPerMonth * months * hourlySalaryEngineer;
+        }
+    }
+
+    let totalIndirectCosts = 0;
+    indirectCosts.forEach((idc) => {
+        totalIndirectCosts += idc.monthlyCost * months;
+    });
+
+    let totalMonthlyCosts = (totalLaborCosts + totalIndirectCosts + totalMaterialCosts + totalEquipmentCost) / months;
+    let totalCost = totalMonthlyCosts * months;
+    let totalPrice = totalCost * (1 + markup / 100);
+    let totalProfits = totalPrice - totalCost;
+
+    let pricePerGram = totalPrice / months / gramsPerMonth;
+
+    // DrawTimePriceLineChart();
+    DrawCostPieChart(totalEquipmentCost, totalLaborCosts, totalMaterialCosts, totalIndirectCosts);
+
+    let monthlyRevenue = totalMonthlyCosts * (1 + markup / 100);
+    DrawResultsBarChart(Math.round(totalEquipmentCost), Math.round(totalLaborCosts / months), Math.round(totalMaterialCosts / months), Math.round(totalIndirectCosts / months), Math.round(monthlyRevenue));
+
+    DrawText(wafersPerMonth, pricePerGram, totalPrice, totalEquipmentCost, totalMaterialCosts, totalLaborCosts, totalIndirectCosts, totalProfits);
+
+    CloseAllDetails();
+
+    ConsoleLogValues(wafersPerMonth, pricePerGram, totalPrice, totalEquipmentCost, totalMaterialCosts, totalLaborCosts, totalIndirectCosts, totalProfits);
+}
+
+function CloseAllDetails() {
+
+    // Equipment
+    let equipmentDetailHolder = document.getElementById("equipmentDetailHolder");
+    if (equipmentDetailHolder.hasChildNodes()) {
+        while (equipmentDetailHolder.firstChild) {
+            equipmentDetailHolder.removeChild(equipmentDetailHolder.firstChild);
+        }
+        equipmentDetailHolder.style.display = "none";
+    }
+
+    // Materials
+    let materialsDetailHolder = document.getElementById("materialsDetailHolder");
+    if (materialsDetailHolder.hasChildNodes()) {
+        while (materialsDetailHolder.firstChild) {
+            materialsDetailHolder.removeChild(materialsDetailHolder.firstChild);
+        }
+        materialsDetailHolder.style.display = "none";
+    }
+
+    // Equipment
+    let laborDetailHolder = document.getElementById("laborDetailHolder");
+    if (laborDetailHolder.hasChildNodes()) {
+        while (laborDetailHolder.firstChild) {
+            laborDetailHolder.removeChild(laborDetailHolder.firstChild);
+        }
+        laborDetailHolder.style.display = "none";
+    }
+
+    // Indirect
+    let indirectDetailHolder = document.getElementById("indirectDetailHolder");
+    if (indirectDetailHolder.hasChildNodes()) {
+        while (indirectDetailHolder.firstChild) {
+            indirectDetailHolder.removeChild(indirectDetailHolder.firstChild);
+        }
+        indirectDetailHolder.style.display = "none";
+    }
+}
+
+function ToggleEquipmentDetails() {
+    let equipmentDetailHolder = document.getElementById("equipmentDetailHolder");
+
+    // Check if the content has children
+    if (equipmentDetailHolder.hasChildNodes()) {
+        // Remove all children
+        while (equipmentDetailHolder.firstChild) {
+            equipmentDetailHolder.removeChild(equipmentDetailHolder.firstChild);
+        }
+        equipmentDetailHolder.style.display = "none";
+    } else {
+        equipmentDetailHolder.style.display = "block";
+        // If there are no children, add content
+        if (document.getElementById("productionMode").value == 0) {
+            for (let i = 0; i < equipment.length; i++) {
+                if (countOfEquipment[i] !== 0) {
+                    let paragraphA = document.createElement('p');
+                    let paragraphB = document.createElement('p');
+                    let divHolder = document.createElement('div');
+                    paragraphA.textContent = countOfEquipment[i] + "x " + equipment[i].type + ": " + equipment[i].name;
+                    paragraphB.textContent = new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                        maximumFractionDigits: 2
+                    }).format(equipment[i].cost * countOfEquipment[i] * PerUnitFactor("totalCostUnit", wafersPerMonth, months));
+
+                    equipmentDetailHolder.appendChild(divHolder);
+                    divHolder.appendChild(paragraphA);
+                    divHolder.appendChild(paragraphB);
+                }
+            }
+        } else {
+            let paragraphA = document.createElement('p');
+            paragraphA.textContent = "-";
+            paragraphA.style.flexGrow = '1';
+            equipmentDetailHolder.appendChild(paragraphA);
+        }
+    }
+}
+
+function ToggleMaterialDetails() {
+    let materialDetailHolder = document.getElementById("materialsDetailHolder");
+
+    // Check if the content has children
+    if (materialDetailHolder.hasChildNodes()) {
+        // Remove all children
+        while (materialDetailHolder.firstChild) {
+            materialDetailHolder.removeChild(materialDetailHolder.firstChild);
+        }
+        materialDetailHolder.style.display = "none";
+    } else {
+        // If there are no children, add content
+        materialDetailHolder.style.display = "block";
+        if (document.getElementById("productionMode").value == 0) {
+            for (let i = 0; i < materials.length; i++) {
+                let paragraphA = document.createElement('p');
+                let paragraphB = document.createElement('p');
+                let divHolder = document.createElement('div');
+                paragraphA.textContent = materials[i].type;
+                paragraphB.textContent = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 2
+                }).format(
+                    materials[i].costPerWafer * wafersPerMonth * months * PerUnitFactor("totalCostUnit", wafersPerMonth, months));
+
+                materialDetailHolder.appendChild(divHolder);
+                divHolder.appendChild(paragraphA);
+                divHolder.appendChild(paragraphB);
+            }
+        } else {
+            let paragraphA = document.createElement('p');
+            let paragraphB = document.createElement('p');
+            let divHolder = document.createElement('div');
+            paragraphA.textContent = "Purchased Wafers";
+            paragraphB.textContent = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0
+            }).format(
+                Math.round(1000 * wafersPerMonth * months * PerUnitFactor("totalCostUnit", wafersPerMonth, months)));
+
+            materialDetailHolder.appendChild(divHolder);
+            divHolder.appendChild(paragraphA);
+            divHolder.appendChild(paragraphB);
+        }
+    }
+}
+
+function ToggleLaborDetails() {
+    let laborDetailHolder = document.getElementById("laborDetailHolder");
+
+    // Check if the content has children
+    if (laborDetailHolder.hasChildNodes()) {
+        // Remove all children
+        while (laborDetailHolder.firstChild) {
+            laborDetailHolder.removeChild(laborDetailHolder.firstChild);
+        }
+        laborDetailHolder.style.display = "none";
+    }
+    else {
+        // If there are no children, add content
+        laborDetailHolder.style.display = "block";
+        let a;
+        if(document.getElementById("productionMode").value == 0){
+            a = 0;
+        }
+        else{
+            a = 3;
+        }
+        for (let i = a; i < workerTasks.length; i++) {
+            let paragraphA = document.createElement('p');
+            let paragraphB = document.createElement('p');
+            let divHolder = document.createElement('div');
+            paragraphA.textContent = workerTasks[i].task;
+            paragraphB.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(
+                Math.round(workerTasks[i].taskTime * wafersPerMonth * months * hourlySalaryEngineer * PerUnitFactor("totalCostUnit")*100)/100);
+
+            laborDetailHolder.appendChild(divHolder);
+            divHolder.appendChild(paragraphA);
+            divHolder.appendChild(paragraphB);
+        }
+    }
+}
+
+function ToggleIndirectDetails() {
+    let indirectDetailHolder = document.getElementById("indirectDetailHolder");
+
+    // Check if the content has children
+    if (indirectDetailHolder.hasChildNodes()) {
+        // Remove all children
+        while (indirectDetailHolder.firstChild) {
+            indirectDetailHolder.removeChild(indirectDetailHolder.firstChild);
+        }
+        indirectDetailHolder.style.display = "none";
+    } else {
+        // If there are no children, add content
+        indirectDetailHolder.style.display = "block";
+        for (let i = 0; i < indirectCosts.length; i++) {
+            let paragraphA = document.createElement('p');
+            let paragraphB = document.createElement('p');
+            let divHolder = document.createElement('div');
+            paragraphA.textContent = indirectCosts[i].type;
+            paragraphB.textContent = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 2
+            }).format(
+                indirectCosts[i].monthlyCost * months * PerUnitFactor("totalCostUnit", wafersPerMonth, months));
+
+            indirectDetailHolder.appendChild(divHolder);
+            divHolder.appendChild(paragraphA);
+            divHolder.appendChild(paragraphB);
+        }
+    }
+}
+
+function ConsoleLogValues(wafersPerMonth, pricePerGram, totalPrice, totalEquipmentCost, totalMaterialCosts, totalLaborCosts, totalIndirectCosts, totalProfits) {
+    console.log("wafersPerMonth: " + wafersPerMonth);
+    console.log("months: " + months);
+    console.log("gramsPerMonth: " + gramsPerMonth);
+    console.log("markup: " + markup);
+
+    /* a foreach loop that prints the name of each equipment and the amount of each equipment */
+    console.log("Equipment: ");
+    equipment.forEach((eq) => {
+        console.log(eq.name + ": " + countOfEquipment[equipment.indexOf(eq)]);
+    });
+
+    console.log("totalEquipmentCost: " + totalEquipmentCost);
+    console.log("totalLaborCosts: " + totalLaborCosts);
+    console.log("totalMaterialCosts: " + totalMaterialCosts);
+    console.log("totalIndirectCosts: " + totalIndirectCosts);
+    console.log("totalProfits: " + totalProfits);
+    console.log("totalPrice: " + totalPrice);
+    console.log("pricePerGram: " + pricePerGram);
+
+}
+
+function DrawText(wafersPerMonth, pricePerGram, totalPrice, totalEquipmentCost, totalMaterialCosts, totalLaborCosts, totalIndirectCosts, totalProfits) {
+    //Wafers per month (or day / year)
+    let factor;
+    switch (document.getElementById("waferVolumeUnit").value) {
+        case "total":
+            factor = months;
+            break;
+        case "year":
+            factor = 12;
+            break;
+        case "month":
+            factor = 1;
+            break;
+        case "day":
+            factor = 12 / 365;
+            break;
+    }
+    UpdateTextContentAdv("waferVolumeText", wafersPerMonth * factor, 10, null, false);
+
+    //Yarn production volume
+    switch (document.getElementById("productionVolumeUnit").value) {
+        case "grams":
+            factor = 1;
+            break;
+        case "kg":
+            factor = 1 / 1000;
+            break;
+        case "lbs":
+            factor = 1 / 453.6;
+            break;
+        case "km":
+            factor = 6.5 / 5;
+            break;
+        case "m":
+            factor = 6.5 / 5 * 1000;
+            break;
+        case "ft":
+            factor = 6.5 / 5 * 1000 * 3.048;
+            break;
+    }
+    UpdateTextContentAdv("productionVolumeText", gramsPerMonth * months * factor, 10, null, false);
+
+    //price per gram (or other)
+    switch (document.getElementById("pricePerAmountUnit").value) {
+        case "grams":
+            factor = 1;
+            break;
+        case "kg":
+            factor = 1000;
+            break;
+        case "lbs":
+            factor = 453.592;
+            break;
+        case "km":
+            factor = 5 / 6.5;
+            break;
+        case "m":
+            factor = 5 / 6.5 / 1000;
+            break;
+        case "ft":
+            factor = 5 / 6.5 / 1000 / 3.048;
+            break;
+    }
+    UpdateTextContentAdv("pricePerAmount", pricePerGram * factor, 10, null, true);
+
+    //price in total
+    UpdateTextContentAdv("price", totalPrice, 10, null, true);
+
+    //total cost per x
+    UpdateTextContentAdv("totalCost", (totalEquipmentCost + totalMaterialCosts + totalLaborCosts + totalIndirectCosts), 10, "totalCostUnit", true);
+
+    //equipment cost per x
+    UpdateTextContentAdv("equipmentCost", totalEquipmentCost, 10, "totalCostUnit", true);
+
+    //material cost per x
+    UpdateTextContentAdv("materialCost", totalMaterialCosts, 10, "totalCostUnit", true);
+    console.log("totalMaterialCosts: " + totalMaterialCosts);
+    console.log("MaterialCostsPer: " + totalMaterialCosts * PerUnitFactor("totalCostUnit", wafersPerMonth, months));
+
+    //labor cost per x
+    UpdateTextContentAdv("laborCost", totalLaborCosts, 10, "totalCostUnit", true);
+
+    //indirect cost per x
+    UpdateTextContentAdv("indirectCost", totalIndirectCosts, 10, "totalCostUnit", true);
+
+    //revenue
+    UpdateTextContentAdv("revenue", (totalEquipmentCost + totalMaterialCosts + totalLaborCosts + totalIndirectCosts) * (1 + markup / 100), true, "revenueUnit", true);
+
+    //profit per x
+    UpdateTextContentAdv("profit", totalProfits, 10, "profitUnit", true);
+}
+
+function UpdateTextContentAdv(id, content, roundingCutoff, unitControlName, isCurrency) {
+    let contentElement = document.getElementById(id);
+    let stringValue;
+    // If the number is below the cutoff: Don't round it
+    if (unitControlName !== null) {
+        content = content * PerUnitFactor(unitControlName, wafersPerMonth, months);
+    }
+    if (content < roundingCutoff) {
+        console.log("Reached non-rounding");
+        if (isCurrency) {
+            stringValue = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(content);
+        } else {
+            stringValue = Math.round(content * 100) / 100;
+        }
+    }
+    // If the number is above the cutoff then round it
+    else {
+        if (isCurrency) {
+            stringValue = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(content);
+        } else {
+            stringValue = Math.round(content);
+        }
+    }
+    if (contentElement.textContent != stringValue) {
+        contentElement.classList.add("fadeOut");
+        setTimeout(() => {
+            contentElement.textContent = stringValue;
+            contentElement.classList.remove("fadeOut");
+        }, 200);
+    }
+}
+
+function PerUnitFactor(name) {
+    switch (document.getElementById(name).value) {
+        case "total":
+            return 1;
+        case "month":
+            return (1 / months);
+        case "grams":
+            return 1 / (wafersPerMonth * months * (1 / (6.5 / 5 * 5)));
+        case "kg":
+            return 1000 / (wafersPerMonth * months * (1 / (6.5 / 5 * 5)));
+        case "lbs":
+            return 453.592 / (wafersPerMonth * months * (1 / (6.5 / 5 * 5)));
+        case "km":
+            return 5 / (6.5 * wafersPerMonth * months * (1 / (6.5 / 5 * 5)));
+        case "m":
+            return 5 / (6.5 * 1000 * wafersPerMonth * months * (1 / (6.5 / 5 * 5)));
+        case "ft":
+            return 5 / (3.28084 * 6.5 * 1000 * wafersPerMonth * months * (1 / (6.5 / 5 * 5)));
+    }
+    throw new Error("ERROR! Couldn't match selected unit to factor");
+}
+
+function DrawResultsBarChart(equipmentCost, montlyLabor, montlyMaterial, monthlyIndirect, monthlyRevenue) {
+    let equipment = [];
+    let labor = [];
+    let material = [];
+    let indirect = [];
+    let revenue = [];
+    let profit = [];
+    let label = [];
+    for (let i = 0; i < months; i++) {
+        equipment[i] = 0;
+        labor[i] = -1 * montlyLabor;
+        material[i] = -1 * montlyMaterial;
+        indirect[i] = -1 * monthlyIndirect;
+        revenue[i] = monthlyRevenue;
+        label[i] = i + 1;
+        if (i > 0) {
+            profit[i] = profit[i - 1] + labor[i] + material[i] + indirect[i] + revenue[i];
+        } else {
+            profit[i] = labor[i] + material[i] + indirect[i] + revenue[i] - equipmentCost;
+        }
+    }
+    equipment[0] = -1 * equipmentCost;
+
+    let resultsBarChartCanvas = document.getElementById("resultsBarChart");
+
+    if (resultsBarChart !== null) {
+        resultsBarChart.data.datasets[0].data = equipment;
+        resultsBarChart.data.datasets[1].data = labor;
+        resultsBarChart.data.datasets[2].data = material;
+        resultsBarChart.data.datasets[3].data = indirect;
+        resultsBarChart.data.datasets[4].data = revenue;
+        resultsBarChart.data.datasets[5].data = profit;
+        resultsBarChart.data.labels = label;
+        resultsBarChart.update();
+    } else {
+        resultsBarChart = new Chart(resultsBarChartCanvas, {
+            type: 'bar',
+            data: {
+                labels: label,
+                datasets: [{
+                    label: 'Equipment',
+                    data: equipment,
+                    backgroundColor: "#FF7719",
+                    borderWidth: 0,
+                    order: 1
+                }, {
+                    label: 'Labor',
+                    data: labor,
+                    backgroundColor: "#c75138",
+                    order: 1
+                }, {
+                    label: 'Materials',
+                    data: material,
+                    backgroundColor: "yellow",
+                    order: 1
+                }, {
+                    label: 'Indirect',
+                    data: indirect,
+                    backgroundColor: "#aa54ab",
+                    order: 1
+                }, {
+                    label: 'Revenue',
+                    data: revenue,
+                    backgroundColor: "#55aa7e",
+                    order: 1
+                }, {
+                    label: 'Total profit',
+                    data: profit,
+                    backgroundColor: "#0AD3FF",
+                    type: 'line',
+                    borderWidth: 1,
+                    borderColor: "#0AD3FF",
+                    order: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            color: 'rgb(200, 200, 200)',
+                            font: {
+                                weight: 'normal'
+                            }
+
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        ticks: {
+                            display: false // This will hide the y-axis values
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        ticks: {
+                            display: false // This will hide the y-axis values
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+
+function DrawCostPieChart(equipmentCost, laborCost, materialCost, indirectCost) {
+    const labels = ["Equipment", "Labor", "Material", "Indirect"];
+
+    let values = [Math.round(equipmentCost), Math.round(laborCost), Math.round(materialCost), Math.round(indirectCost)];
+
+    const barColors = [
+        "#FF7719",
+        "#73937E",
+        "#585563",
+        "#0AD3FF"
+    ];
+
+    if (costPieChart !== null) {
+        costPieChart.data.datasets[0].data = values;
+        costPieChart.update();
+    } else {
+        costPieChart = new Chart(document.getElementById("costPieChart"), {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    backgroundColor: barColors,
+                    borderColor: "#292929",
+                    borderWidth: 0,
+                    data: values
+                }]
+            },
+            options: {
+                radius: 100,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'right',
+                        labels: {
+                            color: 'rgb(255, 255, 255)'
+                        }
+                    }
+                },
+            }
+        });
+    }
+}
+
+function DrawTimePriceLineChart() {
+
+    let dataPoints = 20;
+
+    let timeCostChartx = [];
+    let timeCostCharty = [];
+
+    for (let i = 0; i < dataPoints; i++) {
+        //timeCostChartx[i] = Math.pow(1.4, i+1);
+        timeCostChartx[i] = i + 1;
+    }
+
+    for (let i = 0; i < timeCostChartx.length; i++) {
+        timeCostCharty[i] = Math.round(CostPerGram(timeCostChartx[i]) * (1 + markup / 100));
+        // timeCostChartx[i] = Math.round(timeCostChartx[i]+10)/10;
+    }
+
+    if (timeCostLineChart !== null) {
+        timeCostLineChart.data.labels = timeCostChartx;
+        timeCostLineChart.data.datasets[0].data = timeCostCharty;
+        timeCostLineChart.update();
+    } else {
+        timeCostLineChart = new Chart(document.getElementById("timePriceChart"), {
+            type: 'line',
+            data: {
+                labels: timeCostChartx,
+                datasets: [{
+                    fill: false,
+                    lineTension: 0.5,
+                    backgroundColor: "#FF7719",
+                    borderColor: "#FF7719",
+                    data: timeCostCharty,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+}
+
+function CostPerGram(grams) {
+
+    let wafPerMonth = grams * 6.5 / 5 * 5;
+
+    let totalEquipmentCost = 0;
+    let totalMaterialCosts = 0;
+
+    let cOE = [0, 0, 0, 0, 0, 0];
+    if (document.getElementById("productionMode").value == 0) {
+        let types = ["E-Gun Evaporator", "CVD", "Laser Engraver", "Spinning Machine"];
+        types.forEach((type) => {
+            let eq = GetEquipmentOfType(type);
+            let wafersPerHourLeft = wafPerMonth / 160;
+
+            for (let i = 0; i < eq.length; i++) {
+                while (wafersPerHourLeft > eq[i].maxThroughput) {
+                    cOE[equipment.indexOf(eq[i])]++;
+                    wafersPerHourLeft -= eq[i].maxThroughput;
+                }
+
+                if (i < eq.length - 1) {
+                    let count = Math.round(wafersPerHourLeft / eq[i + 1].maxThroughput);
+                    if (eq[i].cost < eq[i + 1].cost * count) {
+                        cOE[equipment.indexOf(eq[i])]++;
+                        wafersPerHourLeft -= eq[i].maxThroughput;
+                    }
+                }
+            }
+
+            let indexOfFinal = equipment.indexOf(GetEquipmentOfType(type)[GetEquipmentOfType(type).length - 1]);
+            while (wafersPerHourLeft > 0) {
+                cOE[indexOfFinal]++;
+                wafersPerHourLeft -= equipment[indexOfFinal].maxThroughput;
+            }
+        });
+
+        for (let i = 0; i < equipment.length; i++) {
+            totalEquipmentCost += equipment[i].cost * Math.pow(cOE[i], equipment[i].costExponent);
+        }
+
+        materials.forEach((material) => {
+            totalMaterialCosts += material.costPerWafer * wafPerMonth * months;
+        });
+    } else {
+        totalEquipmentCost = Math.pow(Math.ceil(wafPerMonth / 160 / equipment[5].maxThroughput), equipment[5].costExponent) * equipment[5].cost;
+        totalMaterialCosts = wafPerMonth * months * 1000;
+    }
+
+    let workerCount = Math.ceil(wafPerMonth / 160 / workers[0].maxThroughput);
+    let totalLaborCosts = workerCount * workers[0].hourlySalary * 160 * months;
+
+    let totalIndirectCosts = 0;
+    indirectCosts.forEach((idc) => {
+        totalIndirectCosts += idc.monthlyCost * months;
+    });
+
+    let totalMonthlyCosts = (totalLaborCosts + totalIndirectCosts + totalMaterialCosts + totalEquipmentCost) / months;
+
+    // Price per gram equals
+    return (totalMonthlyCosts / grams);
+}
