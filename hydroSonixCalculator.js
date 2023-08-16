@@ -1,3 +1,4 @@
+"use strict";
 class Equipment{
     constructor(type, name, cost, maxThroughput, costExponent){
         this.type = type;
@@ -47,8 +48,7 @@ Materials[3] = new Material("Hydrogen Gas", 3.5154/5/speakersPerWafer);
 Materials[4] = new Material("Argon Gas", 5.7246/5/speakersPerWafer);
 Materials[5] = new Material("Amplifier Components", 195);
 Materials[6] = new Material("Frame Components", 40);
-Materials[7] = new Material("Lintech Wafers", 1000);
-
+Materials[7] = new Material("Purchased Wafers", 1000);
 
 const workerTasks = [];
 workerTasks[0] = new WorkerTask("Run E-gun Evaporator", 1/16/speakersPerWafer);
@@ -177,7 +177,7 @@ function RunCalculator() {
     });
   
     let totalCost = (totalLaborCosts + totalIndirectCosts + totalMaterialCosts + totalEquipmentCost);
-    let totalMontlyCosts = totalCost / months;
+    let totalMonthlyCosts = totalCost / months;
     let totalPrice = totalCost * (1 + markup / 100);
     let totalProfits = totalPrice - totalCost;
 
@@ -188,7 +188,7 @@ function RunCalculator() {
     
     DrawCostPieChart(totalEquipmentCost, totalLaborCosts, totalMaterialCosts, totalIndirectCosts);
 
-    let monthlyRevenue = totalMontlyCosts * (1 + markup / 100);
+    let monthlyRevenue = totalMonthlyCosts * (1 + markup / 100);
     DrawResultsBarChart(Math.round(totalEquipmentCost), Math.round(totalLaborCosts/months), Math.round(totalMaterialCosts/months), Math.round(totalIndirectCosts/months), Math.round(monthlyRevenue));
 
     DrawText(pricePerSpeaker, totalPrice, totalEquipmentCost, totalMaterialCosts, totalLaborCosts, totalIndirectCosts, totalProfits);
@@ -250,30 +250,26 @@ function ToggleEquipmentDetails() {
     }
     else {
         // If there are no children, add content
-        equipmentDetailHolder.style.display = "flex";
+        equipmentDetailHolder.style.display = "block";
         if(document.getElementById("productionMode").value == 0){
             for(let i = 0; i < equipment.length; i++){
                 if(countOfEquipment[i] !== 0){
                     let paragraphA = document.createElement('p');
                     let paragraphB = document.createElement('p');
+                    let divHolder = document.createElement('div');
                     paragraphA.textContent = countOfEquipment[i] + "x " + equipment[i].type + ": " + equipment[i].name;
                     paragraphB.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(
                         Math.round(equipment[i].cost * countOfEquipment[i]*PerUnitFactor("totalCostUnit")));
-                    
-                    paragraphA.style.flexGrow = 1;
-                    paragraphB.style.flexGrow = 1;
-                    paragraphB.style.minWidth = '30%';
-                    paragraphB.style.textAlign = "right";
-        
-                    equipmentDetailHolder.appendChild(paragraphA);
-                    equipmentDetailHolder.appendChild(paragraphB);
+
+                    equipmentDetailHolder.appendChild(divHolder);
+                    divHolder.appendChild(paragraphA);
+                    divHolder.appendChild(paragraphB);
                 }
             }
         }
         else{
             let paragraphA = document.createElement('p');
             paragraphA.textContent = "-";
-            paragraphA.style.flexGrow = 1;
             equipmentDetailHolder.appendChild(paragraphA);
         }
     }
@@ -291,7 +287,7 @@ function ToggleMaterialDetails() {
         materialDetailHolder.style.display = "none";
     } else {
         // If there are no children, add content
-        materialDetailHolder.style.display = "flex";
+        materialDetailHolder.style.display = "block";
         let a;
         let b;
         if (document.getElementById("productionMode").value == 0) {
@@ -305,18 +301,14 @@ function ToggleMaterialDetails() {
         for (let i = a; i < Materials.length - b; i++) {
             let paragraphA = document.createElement('p');
             let paragraphB = document.createElement('p');
+            let divHolder = document.createElement('div');
             paragraphA.textContent = Materials[i].type;
             paragraphB.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(
                 Math.round(Materials[i].costPerSpeaker * speakersPerMonth * months * PerUnitFactor("totalCostUnit")*100)/100);
 
-            paragraphA.style.flexGrow = 1;
-            paragraphA.style.minWidth = '40%';
-            paragraphB.style.flexGrow = 1;
-            paragraphB.style.minWidth = '40%';
-            paragraphB.style.textAlign = "right";
-
-            materialDetailHolder.appendChild(paragraphA);
-            materialDetailHolder.appendChild(paragraphB);
+            materialDetailHolder.appendChild(divHolder);
+            divHolder.appendChild(paragraphA);
+            divHolder.appendChild(paragraphB);
         }
     }
 }
@@ -334,7 +326,7 @@ function ToggleLaborDetails() {
     }
     else {
         // If there are no children, add content
-        laborDetailHolder.style.display = "flex";
+        laborDetailHolder.style.display = "block";
 
         let a;
         if(document.getElementById("productionMode").value == 0){
@@ -346,18 +338,14 @@ function ToggleLaborDetails() {
         for (let i = a; i < workerTasks.length; i++) {
             let paragraphA = document.createElement('p');
             let paragraphB = document.createElement('p');
+            let divHolder = document.createElement('div');
             paragraphA.textContent = workerTasks[i].task;
             paragraphB.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(
                 Math.round(workerTasks[i].taskTime * speakersPerMonth * months * hourlySalaryEngineer * PerUnitFactor("totalCostUnit")*100)/100);
 
-            paragraphA.style.flexGrow = 1;
-            paragraphA.style.minWidth = '40%';
-            paragraphB.style.flexGrow = 1;
-            paragraphB.style.minWidth = '40%';
-            paragraphB.style.textAlign = "right";
-
-            laborDetailHolder.appendChild(paragraphA);
-            laborDetailHolder.appendChild(paragraphB);
+            laborDetailHolder.appendChild(divHolder);
+            divHolder.appendChild(paragraphA);
+            divHolder.appendChild(paragraphB);
         }
     }
 }
@@ -374,22 +362,18 @@ function ToggleIndirectDetails() {
         indirectDetailHolder.style.display = "none";
     } else {
         // If there are no children, add content
-        indirectDetailHolder.style.display = "flex";
+        indirectDetailHolder.style.display = "block";
         for (let i = 0; i < indirectCosts.length; i++) {
             let paragraphA = document.createElement('p');
             let paragraphB = document.createElement('p');
+            let divHolder = document.createElement('div');
             paragraphA.textContent = indirectCosts[i].type;
             paragraphB.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(
                 Math.round(indirectCosts[i].monthlyCost * months * PerUnitFactor("totalCostUnit", wafersPerMonth, months)));
 
-            paragraphA.style.flexGrow = 1;
-            paragraphA.style.minWidth = '40%';
-            paragraphB.style.flexGrow = 1;
-            paragraphB.style.minWidth = '40%';
-            paragraphB.style.textAlign = "right";
-
-            indirectDetailHolder.appendChild(paragraphA);
-            indirectDetailHolder.appendChild(paragraphB);
+            indirectDetailHolder.appendChild(divHolder);
+            divHolder.appendChild(paragraphA);
+            divHolder.appendChild(paragraphB);
         }
     }
 }
@@ -512,7 +496,6 @@ function PerUnitFactor(name){
             return 1/(speakersPerMonth*months);
     }
     throw new Error("ERROR! Couldn't match selected unit to factor");
-    return null;
 }
 
 function DrawResultsBarChart(equipmentCost, montlyLabor, montlyMaterial, monthlyIndirect, monthlyRevenue){
@@ -679,7 +662,7 @@ function DrawTimePriceLineChart(){
     let timeCostCharty = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];   
     
     for(let o = 0; o < timeCostCharty.length; o++){
-        timeCostCharty[o] = Math.round(pricePerSpeaker(timeCostChartx[o]));
+        timeCostCharty[o] = Math.round(PricePerSpeaker(timeCostChartx[o]));
     }
 
     if(timeCostLineChart !== null){
@@ -725,7 +708,7 @@ function DrawTimePriceLineChart(){
     }
 }
 
-function pricePerSpeaker(number){
+function PricePerSpeaker(number){
 
     let wafPerMonth = number / speakersPerWafer;
 
@@ -763,7 +746,7 @@ function pricePerSpeaker(number){
         });
     
         
-        for (i = 0; i < equipment.length; i++) {
+        for (let i = 0; i < equipment.length; i++) {
             totalEquipmentCost += equipment[i].cost * Math.pow(cOE[i], equipment[i].costExponent);
         }
 
