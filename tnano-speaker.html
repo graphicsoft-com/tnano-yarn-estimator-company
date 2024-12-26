@@ -20,55 +20,51 @@
         }
     </script>
     
-
     <header>
         <h1>TNano Estimator - Company</h1>
         <p>V2.2</p>
         <div class="pageLinkHolder">
-            <a href="yarn.html" style="outline: #FF7719 solid 2px;">50 µm yarn</a>
-            <a href="hydroSonix.html">HydroSonix Speaker</a>
-            <a href="tnano-speaker.html">Tnano Speaker</a>
+            <a href="yarn.html">50 µm yarn</a>
+            <a href="hydrosonix.html">HydroSonix Speaker</a>
+            <a href="tnano-speaker.html"  style="outline: #FF7719 solid 2px;">Tnano Speaker</a>
         </div>
     </header>
 
-    <img src="media/TnanoLogo.png" id="tnanoBackgroundLogo" alt="Company Logo">
+    <img src="media\TnanoLogo.png" id="tnanoBackgroundLogo">
     <div class="content">
         <div class="estimator">
-            <img src="media/Yarn V4.png" class="productImage" alt="TNano Yarn Icon">
+            <img src="media\HydrosonixV5.png" class="productImage">
             <h2>Inputs</h2>
 
             <div class="contentBox">
                 <label for="productionMode">Wafers</label>
                 <select name="productionMode" id="productionMode" onchange="RunCalculator()" style="text-align: right;">
                     <option value="0">TNano Custom Wafers</option>
-                    <option value="1">Purchased Wafers</option>
+                    <option value="1">Lintec Wafers</option>
                 </select>
             </div>
 
-            <div class="contentBox" style="flex-wrap: wrap;">
-                <label for="amount">Production</label>
-                <input type="number" id="amount" name="amount" min="0.001" max="100000" value="100" onchange="RunCalculator()">
-                <select name="amountUnit" id="amountUnit" onchange="AmountUnitChanged()"
-                    style="flex-grow: 0;">
-                    <option value="m">m</option>
-                    <option value="grams">grams</option>
-                    <option value="kg">kg</option>
-                    <option value="lbs">lbs</option>
-                    <option value="km">km</option>
-                    <option value="ft">ft</option>
+            <div class="contentBox">
+                <label for="waferSize">Wafers Size</label>
+                <select name="waferSize" id="waferSize" onchange="updateWaferParameters()" style="text-align: right;">
+                    <option value="0">3-inch wafer</option>
+                    <option value="1">6-inch wafer</option>
                 </select>
+            </div>
 
-                <p style="width: 100%; font-size: 8px; margin-top: 0; padding-top: 0; margin-left: 14px;">(per month)</p>
+            <div class="contentBox">
+                <label for="amount">Speakers per month</label>
+                <input type="number" id="amount" name="amount" min="0.001" value="10" onchange="RunCalculator()">
             </div>
 
             <div class="contentBox">
                 <label for="time">Time</label>
-                <input type="number" id="time" name="time" min="1" max="48" value="6" onchange="RunCalculator()">
+                <input type="number" id="time" name="time" min="1" value="3" onchange="RunCalculator()">
                 <label for="time">months</label>
             </div>
 
             <div class="contentBox">
-                <label for="markup">Markup</label>
+                <label for="time">Markup</label>
                 <input type="number" id="markup" name="markup" value="0" onchange="RunCalculator()">
                 <label for="time">%</label>
             </div>
@@ -78,32 +74,35 @@
             <h2>Resulting production volume</h2>
 
             <div class="contentBox">
-                <p>Wafers</p>
-                <p class="result" id="waferVolumeText">200</p>
-                <select name="waferVolumeUnit" id="waferVolumeUnit" onchange="RunCalculator()">
+                <label>Speakers per Wafer</label>
+                <p id="speakersPerWaferDisplay">243</p>
+            </div>
+            
+            <div class="contentBox">
+                <p>Speakers</p>
+                <p class="result" id="productionVolumeText">200</p>
+                <select name="productionVolumeUnit" id="productionVolumeUnit" onchange="RunCalculator()">
+                    <option value="total">in total</option>
                     <option value="month">per month</option>
                     <option value="day">per day</option>
-                    <option value="total">in total</option>
                     <option value="year">per year</option>
                 </select>
             </div>
 
             <div class="contentBox">
-                <p>Yarn</p>
-                <p class="result" id="productionVolumeText">200</p>
-                <select name="productionVolumeUnit" id="productionVolumeUnit" onchange="RunCalculator()">
-                    <option value="m">m</option>
-                    <option value="grams">grams</option>
-                    <option value="kg">kg</option>
-                    <option value="lbs">lbs</option>
-                    <option value="km">km</option>
-                    <option value="ft">ft</option>
+                <p>Wafers</p>
+                <p class="result" id="waferVolumeText">200</p>
+                <select name="waferVolumeUnit" id="waferVolumeUnit" onchange="RunCalculator()">
+                    <option value="total">in total</option>
+                    <option value="month">per month</option>
+                    <option value="day">per day</option>
+                    <option value="year">per year</option>
                 </select>
             </div>
 
-            <h2>Price per gram based on production (grams)</h2>
+            <h2>Price per speaker based on number produced</h2>
 
-            <canvas id="timePriceChart"></canvas>
+            <canvas id="timePriceChart" style="width:100%;"></canvas>
 
 
             <h2>Customer</h2>
@@ -111,14 +110,7 @@
             <div class="contentBox">
                 <p>Price</p>
                 <p class="result" id="pricePerAmount">$560</p>
-                <select name="pricePerAmountUnit" id="pricePerAmountUnit" onchange="RunCalculator()">
-                    <option value="m">/ m</option>
-                    <option value="grams">/ gram</option>
-                    <option value="kg">/ kg</option>
-                    <option value="lbs">/ lb</option>
-                    <option value="km">/ km</option>
-                    <option value="ft">/ ft</option>
-                </select>
+                <p>per speaker</p>
             </div>
 
             <div class="contentBox">
@@ -132,20 +124,16 @@
 
             <h2>Costs</h2>
 
-            <canvas id="costPieChart"></canvas>
+            <canvas id="costPieChart" style="width:100%;"></canvas>
 
             <div class="contentBox">
-                <p>Costs</p>
+                <p>Costs</button>
                 <p class="result" id="totalCost">$10,000</p>
-                <select id="totalCostUnit" onchange="RunCalculator()">
+                <select id="totalCostUnit" onchange="RunCalculator()" style="flex-grow: 0;">
                     <option value="total">total</option>
                     <option value="month">/ month</option>
-                    <option value="grams">/ gram</option>
-                    <option value="kg">/ kg</option>
-                    <option value="lbs">/ lb</option>
-                    <option value="km">/ km</option>
-                    <option value="m">/ m</option>
-                    <option value="ft">/ ft</option>
+                    <option value="day">/ day</option>
+                    <option value="speaker">/ speaker</option>
                 </select>
             </div>
 
@@ -175,44 +163,37 @@
 
             <h2>Results</h2>
 
-            <canvas id="resultsBarChart"></canvas>
+            <canvas id="resultsBarChart" style="width:100%;"></canvas>
 
             <div class="contentBox">
                 <p>Revenue</p>
                 <p class="result" id="revenue">$1,000</p>
-                <select name="revenueUnit" id="revenueUnit" onchange="RunCalculator()">
+                <select name="revenueUnit" id="revenueUnit" onchange="RunCalculator()" style="flex-grow: 0;">
                     <option value="total">total</option>
                     <option value="month">/ month</option>
-                    <option value="grams">/ gram</option>
-                    <option value="kg">/ kg</option>
-                    <option value="lbs">/ lb</option>
-                    <option value="km">/ km</option>
-                    <option value="m">/ m</option>
-                    <option value="ft">/ ft</option>
+                    <option value="day">/ day</option>
+                    <option value="speaker">/ speaker</option>
                 </select>
             </div>
 
             <div class="contentBox">
                 <p>Profit</p>
                 <p class="result" id="profit">$1,000</p>
-                <select name="profitUnit" id="profitUnit" onchange="RunCalculator()">
+                <select name="profitUnit" id="profitUnit" onchange="RunCalculator()" style="flex-grow: 0;">
                     <option value="total">total</option>
                     <option value="month">/ month</option>
-                    <option value="grams">/ gram</option>
-                    <option value="kg">/ kg</option>
-                    <option value="lbs">/ lb</option>
-                    <option value="km">/ km</option>
-                    <option value="m">/ m</option>
-                    <option value="ft">/ ft</option>
+                    <option value="day">/ day</option>
+                    <option value="speaker">/ speaker</option>
                 </select>
             </div>
         </div>
     </div>
 
 
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="yarnCalculator.js">
-    </script>
+    <script src="tnano-speaker.js"></script>
 </body>
 
 </html>
