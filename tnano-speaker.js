@@ -16,8 +16,6 @@ class Material {
   }
 }
 
-// Tasks that workers have to carry out
-// taskTime is the time it takes to complete the task in hours per speaker
 class WorkerTask {
   constructor(task, taskTime) {
     this.task = task;
@@ -32,8 +30,14 @@ class IndirectCost {
   }
 }
 
-let speakersPerWafer = 243;
+const SPEAKER_SIZE = 10;
+const SPEAKER_SPACING = 0;
+const WAFER_EDGE_EXCLUSION = 0;
+const YIEDLSFACTOR = 1;
+
 let waferSize = 3;
+let speakersPerWafer = calculateSpeakersPerWafer(waferSize);
+let speakersPerMonth = speakersPerWafer; 
 
 const equipment = [];
 equipment[0] = new Equipment("CVD", "Easytube 3000", 185000, 0.75, 1);
@@ -66,7 +70,6 @@ const indirectCosts = [];
 indirectCosts[0] = new IndirectCost("Rent", 4000);
 indirectCosts[1] = new IndirectCost("Electricity", 120);
 
-let speakersPerMonth = 10;
 let months = 0;
 let markup = 0;
 let wafersPerMonth = 0;
@@ -78,48 +81,34 @@ let timeCostLineChart = null;
 let costPieChart = null;
 let resultsBarChart = null;
 
-const SPEAKER_SIZE = 10; // 10mm x 10mm
-const SPEAKER_SPACING = 1; // 1mm spacing between speakers
-const WAFER_EDGE_EXCLUSION = 5; // 5mm edge exclusion zone // ????
 
 // Runs the calculator to correct the placeholder numbers at start
 RunCalculator();
 
 function calculateSpeakersPerWafer(waferSize) {
-  // Convert wafer size from inches to mm
   const waferDiameter = waferSize * 25.4; // 1 inch = 25.4mm
-  
-  // Calculate usable diameter (accounting for edge exclusion)
+  // Calculate usable diameter
   const usableDiameter = waferDiameter - (2 * WAFER_EDGE_EXCLUSION);
   
   // Calculate usable area (in mm²)
   const usableArea = Math.PI * Math.pow(usableDiameter / 2, 2);
-  
+
   // Calculate area needed for one speaker including spacing
   const speakerUnitArea = (SPEAKER_SIZE + SPEAKER_SPACING) * (SPEAKER_SIZE + SPEAKER_SPACING);
-  
+
   // Calculate theoretical maximum number of speakers
   const theoreticalCount = Math.floor(usableArea / speakerUnitArea);
   
-  // Apply a practical yield factor (e.g., 85% of theoretical maximum)
-  const yieldFactor = 0.85;
-  
-  return Math.floor(theoreticalCount * yieldFactor);
+  // the percentage of acceptable or usable products produced from a total number of attempted productions
+  UpdateTextContent("speakersPerWaferDisplay",Math.floor(theoreticalCount * YIEDLSFACTOR));
+  return Math.floor(theoreticalCount * YIEDLSFACTOR);
 }
-
 
 function updateWaferParameters() {
   const waferSizeSelect = document.getElementById("waferSize");
-  const productionModeSelect = document.getElementById("productionMode");
-  
-  // Determine wafer size based on both dropdowns
-  const waferSize = productionModeSelect.value === "0" ? 
-    (waferSizeSelect.value === "0" ? 3 : 6) : 
-    (waferSizeSelect.value === "0" ? 3 : 6);
-  
+  waferSize = waferSizeSelect.value === '0' ? 3 : 6;
   const oldSpeakersPerWafer = speakersPerWafer;
   speakersPerWafer = calculateSpeakersPerWafer(waferSize);
-  
   const waferCost = waferSize === 3 ? 50 : 120;
   Materials[0].costPerSpeaker = waferCost / speakersPerWafer;
 
@@ -130,8 +119,6 @@ function updateWaferParameters() {
   
   workerTasks[0].taskTime = 1 / speakersPerWafer; 
   workerTasks[1].taskTime = (1 / 8) / speakersPerWafer; 
-  document.getElementById('speakersPerWaferDisplay').textContent = speakersPerWafer;
-
   RunCalculator();
 }
 
@@ -162,7 +149,9 @@ function GetEquipmentOfType(type) {
 }
 
 function RunCalculator() {
-  speakersPerMonth = document.getElementById("amount").value;
+  // consider the produced speakers per month equal to produce speakers per wafer
+  document.getElementById("amount").value = speakersPerWafer;
+  UpdateTextContent('amount',speakersPerMonth);
   months = document.getElementById("time").value;
   markup = document.getElementById("markup").value;
 
@@ -251,16 +240,16 @@ function RunCalculator() {
 
   let pricePerSpeaker = totalPrice / months / speakersPerMonth;
 
-  ConsoleLogValues(
-    wafersPerMonth,
-    pricePerSpeaker,
-    totalPrice,
-    totalEquipmentCost,
-    totalMaterialCosts,
-    totalLaborCosts,
-    totalIndirectCosts,
-    totalProfits
-  );
+  // ConsoleLogValues(
+  //   wafersPerMonth,
+  //   pricePerSpeaker,
+  //   totalPrice,
+  //   totalEquipmentCost,
+  //   totalMaterialCosts,
+  //   totalLaborCosts,
+  //   totalIndirectCosts,
+  //   totalProfits
+  // );
 
   DrawCostPieChart(
     totalEquipmentCost,
@@ -570,28 +559,26 @@ function DrawText(
   }
   UpdateTextContent(
     "productionVolumeText",
-    Math.round(speakersPerMonth * factor * 100) / 100
+    Math.round(speakersPerWafer * factor * 100) / 100
   );
 
   //Wafer production volume
-  switch (document.getElementById("waferVolumeUnit").value) {
-    case "total":
-      factor = months;
-      break;
-    case "year":
-      factor = 12;
-      break;
-    case "month":
-      factor = 1;
-      break;
-    case "day":
-      factor = 12 / 52;
-      break;
-  }
-  UpdateTextContent(
-    "waferVolumeText",
-    Math.round(wafersPerMonth * factor * 1000) / 1000
-  );
+//   switch(document.getElementById("waferVolumeUnit").value){
+//     case "total":
+//         factor = months;
+//         break;
+//     case "year":
+//         factor = 12;
+//         break;
+//     case "month":
+//         factor = 1;
+//         break;
+//     case "day":
+//         factor = 12 / 52;
+//         break;
+// }
+
+// UpdateTextContent("waferVolumeText", Math.round(wafersPerMonth*factor*1000)/1000);
 
   UpdateTextContent(
     "pricePerAmount",
